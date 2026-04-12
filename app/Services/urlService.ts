@@ -44,6 +44,17 @@ export const deleteUrl = async (shortCode: string) => {
   }
 };
 
+export const getUrlAnalytics = async (shortCode: string) => {
+  try {
+    // Attempting to hit the analytics endpoint. This will likely 404 or fail unless implemented.
+    // Given the prompt assumes it's mocked, we will handle failing gracefully or just call the API.
+    const response = await api.get(`${API_ENDPOINTS.ANALYTICS}/${shortCode}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const pingServer = async () => {
     try {
       const response = await api.get(API_ENDPOINTS.PING);

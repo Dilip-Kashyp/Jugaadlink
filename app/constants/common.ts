@@ -14,6 +14,7 @@ export const API_ENDPOINTS = {
     PING: "/test/ping",
     REDIRECT: "/url/redirect",
     DELETE: "/url",
+    ANALYTICS: "/url/analytics",
 }
 
 export const LOGIN_URL = "/login";
@@ -21,11 +22,18 @@ export const REGISTER_URL = "/register";
 export const DASHBOARD_URL = "/dashboard";
 
 
-
-
-
-
-
+export const PIE_COLORS = ['var(--primary)', 'var(--success)', 'var(--chart-line)', 'var(--hover-primary)'];
+export const MOCK_DEVICE_DATA = [
+     { name: 'Mobile', value: 400 },
+     { name: 'Desktop', value: 300 },
+     { name: 'Tablet', value: 100 },
+];
+export const MOCK_REGION_DATA = [
+     { name: 'US', value: 300 },
+     { name: 'India', value: 200 },
+     { name: 'UK', value: 150 },
+     { name: 'Other', value: 50 },
+];
 
 
 

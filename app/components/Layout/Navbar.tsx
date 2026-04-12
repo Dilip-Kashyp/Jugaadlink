@@ -10,25 +10,26 @@ export default function Navbar() {
   const logout = useLogout();
 
   return (
-    <nav className="sticky top-0 z-50 w-full px-6 py-2 flex items-center justify-between bg-white border-b">
-      <Link href="/" className="text-xl font-bold">
-        Linkly
+    <nav className="sticky top-0 z-50 w-full px-6 py-3 flex items-center justify-between bg-[var(--secondary)] border-b-[var(--border-width)] border-[var(--border-default)] shadow-[0_4px_0_0_var(--border-default)]">
+      <Link href="/" className="text-xl font-black uppercase tracking-wider flex items-center gap-1 font-heading">
+        <span className="bg-[var(--primary)] text-[var(--foreground)] px-2 py-1 border-[var(--border-width)] border-[var(--border-default)] -rotate-2">JUGAAD</span>
+        <span className="text-[var(--foreground)] mt-1">LINK</span>
       </Link>
       
       <div className="flex items-center gap-4">
         {isLoading ? (
-          <div className="w-20 h-8 bg-gray-100 animate-pulse rounded-full" />
+          <div className="w-20 h-8 bg-black/10 animate-pulse" />
         ) : user ? (
           <Flex flexProps={{ gap: 4, align: "center" }}>
-            <Typography typographyProps={{ level: 5, className: "!mb-0" }}>
+            <Typography typographyProps={{ level: 5, className: "!mb-0 font-bold" }}>
               Hi, {user?.data?.[0]?.name || "User"}
             </Typography>
             <Button
               buttonProps={{
-                type: "text",
+                type: "default",
                 icon: <LogOut size={16} />,
                 onClick: logout,
-                className: "flex items-center gap-2",
+                className: "neo-brutal flex items-center gap-2 font-bold ml-4",
               }}
             >
               Logout
@@ -39,7 +40,7 @@ export default function Navbar() {
             <Button
               buttonProps={{
                 type: "primary",
-                className: "!bg-black !border-black !rounded-full !px-6 !h-10 flex items-center gap-2 font-medium hover:!opacity-80 transition-opacity",
+                className: "neo-brutal !bg-black !text-white !px-6 !h-11 flex items-center gap-2 font-bold",
               }}
             >
               <span className="mr-1">{LOGIN}</span>

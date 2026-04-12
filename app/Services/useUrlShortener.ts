@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { shortenUrl, getUrlHistory, deleteUrl, UrlHistoryResponse } from "./urlService";
+import { shortenUrl, getUrlHistory, deleteUrl, getUrlAnalytics, UrlHistoryResponse } from "./urlService";
 
 type url = {
   original_url: string,
@@ -41,5 +41,20 @@ export const useDeleteUrl = ({ mutationConfig }: { mutationConfig?: any } = {}) 
     },
     ...restConfig,
     mutationFn: deleteUrl,
+  });
+};
+
+export const useUrlAnalytics = ({ mutationConfig }: { mutationConfig?: any } = {}) => {
+  const { onSuccess, onError, ...restConfig } = mutationConfig || {};
+
+  return useMutation<any, Error, string>({
+    onSuccess: (...args) => {
+      onSuccess?.(...args);
+    },
+    onError: (...args) => {
+      onError?.(...args);
+    },
+    ...restConfig,
+    mutationFn: getUrlAnalytics,
   });
 };

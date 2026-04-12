@@ -3,6 +3,8 @@ import 'antd/dist/reset.css';
 import "./globals.css";
 import ReactQueryProvider from "./components/common/ReactQueryProvider";
 
+import { ThemeProvider } from "./components/common/ThemeContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -10,11 +12,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ReactQueryProvider>
-        <body>
-          {children}
-        </body>
-      </ReactQueryProvider>
+      <ThemeProvider>
+        <ReactQueryProvider>
+          <body>
+            {children}
+          </body>
+        </ReactQueryProvider>
+      </ThemeProvider>
     </html>
   );
 }

@@ -1,0 +1,50 @@
+export const DASHBOARD_CONSTANTS = {
+  MESSAGES: {
+    LINK_MINIMIZED_SUCCESS: "Link successfully minimized!",
+    LINK_MINIMIZED_ERROR: "Failed to minimize link.",
+    LINK_ERASED_SUCCESS: "Link permanently erased.",
+    LINK_ERASED_ERROR: "Error erasing link.",
+    LINK_COPIED_SUCCESS: "Link instantly copied!",
+    LINK_COPIED_FALLBACK: "Fallback: Link copied to clipboard.",
+  },
+  MENU: {
+    OVERALL_LINKS: "Overall Links",
+    HISTORY_LOG: "History Log",
+  },
+  MODAL: {
+    QR_SCANNER: "QR Scanner",
+  },
+  HERO: {
+    HEADING_LINE_1: "Streamline",
+    HEADING_LINE_2: "your links.",
+    SUBTEXT: "Transform chaos into clarity",
+  },
+  FORM: {
+    LABEL: "Paste a long URL here",
+    PLACEHOLDER: "https://very-long-url.com/xyz...",
+    BUTTON_LOADING: "Generating...",
+    BUTTON_DEFAULT: "Shrink",
+  },
+  PERFORMANCE: {
+    HEADING: "PERFORMANCE",
+    OVERALL_CLICKS: "Overall Clicks",
+    ACTIVE_LINKS: "Active Links",
+    AVG_CLICKS: "Avg Clicks / Link",
+    TRAFFIC_FORECAST: "Traffic Forecast (7d)",
+    TOP_PERFORMING: "Top Performing Links",
+  },
+  HISTORY: {
+    HEADING: "HISTORY LOG",
+    TOTAL_LINKS: "Total Links",
+    NO_LINKS: "No links generated yet.",
+    HEADER_SOURCE_TARGET: "Source & Target",
+    HEADER_ANALYTICS: "Analytics",
+    HEADER_CREATED: "Created",
+    HEADER_OPERATIONS: "Operations",
+    TOOLTIP_ANALYTICS: "Analytics",
+    TOOLTIP_COPY: "Copy",
+    TOOLTIP_QR: "QR Code",
+    TOOLTIP_SHARE: "Share",
+    TOOLTIP_DELETE: "Delete",
+  }
+};

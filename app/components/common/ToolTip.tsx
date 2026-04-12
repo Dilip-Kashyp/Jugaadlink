@@ -1,21 +1,9 @@
 import React from 'react';
-import { ConfigProvider, Tooltip } from 'antd';
+import { Tooltip as AntdTooltip, TooltipProps } from 'antd';
 
-const SharedButton = ({ title, placement = 'top', icon }: { title: string, placement?: 'top' | 'bottom', icon?: React.ReactNode }) => (
-  <Tooltip title={title} placement={placement}>
-    {icon}
-  </Tooltip>
-);
-
-const ToolTip: React.FC<{title: string, placement?: 'top' | 'bottom', icon?: React.ReactNode}> = ({title, placement = 'top', icon}) => {
+const ToolTip = ({ tooltipProps, children }: { tooltipProps: TooltipProps, children?: React.ReactNode }) => {
   return (
-    <ConfigProvider
-      tooltip={{
-        unique: true,   
-      }}
-    >  
-    <SharedButton title={title} placement={placement} icon={icon} />
-    </ConfigProvider>
+    <AntdTooltip {...tooltipProps}>{children}</AntdTooltip>
   );
 };
 

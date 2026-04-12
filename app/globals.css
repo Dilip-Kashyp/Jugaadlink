@@ -1,44 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400..800&display=swap');
 
 @import "tailwindcss";
 
 :root {
-  --background: #FFFFFF;
-  --background-muted: #F9F9F9;
-  --background-subtle: #F3F4F6;
+  --background: #F9FAFB;
+  --background-muted: #F3F4F6;
+  --background-subtle: #FFFFFF;
 
-    /* Typography */
-  --font-montserrat: 'Montserrat';
+  /* Typography */
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Space Mono', monospace;
 
   /* Foreground / Text */
-  --foreground: #000000;
-  --foreground-muted: #444444;
-  --foreground-subtle: #6B7280;
+  --foreground: #111827;
+  --foreground-muted: #374151;
+  --foreground-subtle: #4B5563;
   --foreground-placeholder: #9CA3AF;
 
   /* Borders */
-  --border-default: #E5E7EB;
-  --border-muted: #EEEEEE;
+  --border-default: #111827;
+  --border-muted: #111827;
+  --border-width: 2px;
 
   /* Primary (CTA / Buttons) */
-  --primary: #121317;
-  --primary-foreground: #FFFFFF;
+  --primary: #A7F3D0; /* Soft Mint Green */
+  --primary-foreground: #111827;
 
-  --hover-primary: #2c2e35;
-  --hover-primary-foreground: #FFFFFF;
+  --hover-primary: #6EE7B7;
+  --hover-primary-foreground: #111827;
 
-  --hover-default: #f1f1f1;
-  --hover-default-foreground: #121317;
-
+  --hover-default: #F3F4F6;
+  --hover-default-foreground: #111827;
 
   /* Secondary / Utility */
-  --secondary: #F9F9F9;
-  --secondary-foreground: #acacac;
+  --secondary: #FFFFFF;
+  --secondary-foreground: #111827;
 
-  /* Status (future-proofing) */
-  --success: #16A34A;
-  --warning: #D97706;
-  --error: #DC2626;
+  /* Status */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+  /* Chart Colors */
+  --chart-grid: #E5E7EB;
+  --chart-text: #111827;
+  --chart-tooltip-bg: #111827;
+  --chart-tooltip-text: #FFFFFF;
+  --chart-line: #10B981;
+  --chart-bar: #A7F3D0;
+
+  /* Special Colors (Migrating from Landing Page) */
+  --accent-yellow: #FDE047;
+  --accent-gray: #374151;
 
   /* Spacing */
   --section-padding: 80px 0;
@@ -46,83 +59,209 @@
   --container-padding: 0 24px;
 
   /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-full: 0px;
+
+  /* Shadows - Less overwhelming */
+  --shadow-solid: 4px 4px 0px 0px #111827;
+  --shadow-solid-sm: 2px 2px 0px 0px #111827;
+  --shadow-solid-hover: 0px 0px 0px 0px #111827;
+}
+
+:root[class~="dark"] {
+    --background: #111827;
+    --background-muted: #1F2937;
+    --background-subtle: #374151;
+    --foreground: #F9FAFB;
+    --foreground-muted: #D1D5DB;
+    --foreground-subtle: #9CA3AF;
+    --foreground-placeholder: #6B7280;
+    --border-default: #F3F4F6;
+    --border-muted: #D1D5DB;
+    --primary: #10B981; 
+    --primary-foreground: #111827;
+    --hover-primary: #059669;
+    --hover-primary-foreground: #111827;
+    --hover-default: #374151;
+    --hover-default-foreground: #F9FAFB;
+    --secondary: #1F2937;
+    --secondary-foreground: #F9FAFB;
+    --shadow-solid: 4px 4px 0px 0px #F3F4F6;
+    --shadow-solid-sm: 2px 2px 0px 0px #F3F4F6;
+    --shadow-solid-hover: 0px 0px 0px 0px #F3F4F6;
+
+    /* Chart Dark Mode */
+    --chart-grid: #374151;
+    --chart-text: #F9FAFB;
+    --chart-tooltip-bg: #F9FAFB;
+    --chart-tooltip-text: #111827;
+    --chart-line: #34D399;
+    --chart-bar: #059669;
+
+    --accent-yellow: #CA8A04;
+    --accent-gray: #4B5563;
 }
 
 body {
-  font-family: var(--font-montserrat);
-  padding:0;
-  margin:0; 
+  font-family: var(--font-body);
+  background-color: var(--background);
+  color: var(--foreground);
+  padding: 0;
+  margin: 0;
+}
 
+h1, h2, h3, h4, h5, h6, .ant-typography {
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+  color: var(--foreground) !important;
+}
+
+/* Base Component Styles for Neo-Brutalism */
+.neo-brutal {
+  border: var(--border-width) solid var(--border-default) !important;
+  box-shadow: var(--shadow-solid) !important;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--secondary) !important;
+}
+
+/* Button Overrides */
+.ant-btn {
+  border-radius: 0 !important;
+  border: var(--border-width) solid var(--border-default) !important;
+  box-shadow: var(--shadow-solid-sm) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  transition: all 0.15s ease !important;
+  text-transform: uppercase;
+}
+
+.ant-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: var(--shadow-solid-hover) !important;
 }
 
 .ant-btn-primary, 
-.ant-btn-primary:focus,
-.ant-btn-primary:active {
+.ant-btn-primary:focus {
   background-color: var(--primary) !important;
   color: var(--primary-foreground) !important;
-  border-color: var(--primary) !important;
-  box-shadow: none !important;
 }
 
-.ant-btn-primary:hover,
-.ant-btn-primary:focus:hover {  
+.ant-btn-primary:active {
+  background-color: var(--primary) !important;
+}
+
+.ant-btn-primary:hover {  
   background-color: var(--hover-primary) !important;
   color: var(--hover-primary-foreground) !important;
-  border-color: var(--hover-primary) !important;
+}
+
+.ant-btn-default {
+  background-color: var(--secondary) !important;
+  color: var(--foreground) !important;
 }
 
 .ant-btn-default:hover,
 .ant-btn-default:focus:hover {  
   background-color: var(--hover-default) !important;
   color: var(--hover-default-foreground) !important;
-  border-color: var(--hover-default) !important;
 }
 
-.ant-table-thead > tr > th {
-  background-color: var(--primary) !important;
-  color: var(--primary-foreground) !important;
-  font-weight: 600 !important;
-} 
+/* Input & Card Overrides */
+.ant-input, .ant-input-password, .ant-picker, .ant-select-selector {
+  border-radius: 0 !important;
+  border: var(--border-width) solid var(--border-default) !important;
+  box-shadow: var(--shadow-solid-sm) !important;
+  background-color: var(--secondary) !important;
+  font-family: var(--font-body) !important;
+}
 
-.ant-pagination-item,
-.ant-pagination-prev,
-.ant-pagination-next {
-  border-radius: var(--radius-sm) !important;
+.ant-input:focus, .ant-input-focused {
+  box-shadow: var(--shadow-solid) !important;
   border-color: var(--border-default) !important;
 }
 
+.ant-card {
+  border-radius: 0 !important;
+  border: var(--border-width) solid var(--border-default) !important;
+  box-shadow: var(--shadow-solid) !important;
+  background-color: var(--background-subtle) !important;
+}
+
+/* Table */
+.ant-table-wrapper {
+  border: var(--border-width) solid var(--border-default) !important;
+  box-shadow: var(--shadow-solid) !important;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  font-family: var(--font-heading) !important;
+  border-radius: 0 !important;
+  text-transform: uppercase;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 2px solid var(--border-default) !important;
+}
+
+/* Pagination */
+.ant-pagination-item,
+.ant-pagination-prev,
+.ant-pagination-next {
+  border-radius: 0 !important;
+  border: var(--border-width) solid var(--border-default) !important;
+  box-shadow: var(--shadow-solid-sm) !important;
+}
+
 .ant-pagination-item a {
-  color: var(--foreground-muted) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
 }
 
 .ant-pagination-item-active {
-  border-color: var(--primary) !important;
-  background-color: transparent !important;
+  background-color: var(--primary) !important;
 }
 
 .ant-pagination-item-active a {
-  color: var(--primary) !important;
-  font-weight: 600 !important;
+  color: var(--primary-foreground) !important;
 }
 
 .ant-pagination-item:hover,
 .ant-pagination-prev:hover,
 .ant-pagination-next:hover {
-  border-color: var(--primary) !important;
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-solid) !important;
 }
 
-.ant-pagination-item:hover a,
-.ant-pagination-prev:hover .ant-pagination-item-link,
-.ant-pagination-next:hover .ant-pagination-item-link {
-  color: var(--primary) !important;
+/* Antd Message Overrides for Neo-Brutalism */
+.ant-message-notice-content {
+  border: var(--border-width) solid var(--border-default) !important;
+  box-shadow: var(--shadow-solid-sm) !important;
+  border-radius: 0 !important;
+  padding: 12px 24px !important;
+  font-family: var(--font-body) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  background-color: var(--secondary) !important;
+  color: var(--foreground) !important;
 }
 
-.ant-pagination-prev .ant-pagination-item-link,
-.ant-pagination-next .ant-pagination-item-link {
-  background-color: transparent !important;
+.ant-message-success .ant-message-notice-content {
+  background-color: var(--primary) !important;
+  color: var(--foreground) !important;
+}
+
+.ant-message-error .ant-message-notice-content {
+  background-color: var(--error) !important;
+  color: #FFFFFF !important;
+}
+
+.ant-message-info .ant-message-notice-content {
+  background-color: #BBE9FF !important;
 }
