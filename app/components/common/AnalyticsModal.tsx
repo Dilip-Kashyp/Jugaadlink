@@ -5,17 +5,9 @@ import { Copy, Share2, QrCode, Trash2, BarChart as BarChartIcon } from "lucide-r
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, CartesianGrid, PieChart, Pie, Cell } from "recharts";
 import { Typography, Flex, Button } from "./index";
 import Empty from "./Empty";
-import { useUrlAnalytics } from "@/app/Services";
+import { useUrlAnalytics, UrlItem } from "@/app/Services";
 import { PIE_COLORS } from "@/app/constants";
 
-interface UrlItem {
-  id: string;
-  original_url: string;
-  short_code: string;
-  short_url: string;
-  clicks: number;
-  created_at: string;
-}
 
 interface AnalyticsModalProps {
   open: boolean;

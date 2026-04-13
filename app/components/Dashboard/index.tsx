@@ -4,17 +4,10 @@ import { message } from "antd";
 import { QRCodeSVG } from "qrcode.react";
 import { Copy, Share2, QrCode, Trash2, LinkIcon, AlertCircle, TrendingUp, Calendar, ChevronRight, BarChart2, Activity, LayoutDashboard, List, BarChart as BarChartIcon } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, CartesianGrid, PieChart, Pie, Cell } from "recharts";
-import { useUrlShortener, useUrlHistory, useDeleteUrl, useCurrentUser } from "@/app/Services";
+import { useUrlShortener, useUrlHistory, useDeleteUrl, useCurrentUser, UrlItem } from "@/app/Services";
 import { Flex, Typography, AnalyticsModal, Layout, Menu, Modal, Empty, ToolTip, Drawer, Button, ThemeToggle } from "@/app/components/common";
 import { DASHBOARD_CONSTANTS, HERO_HEADING_DASHBOARD, HERO_SUBTEXT, SHORTEN, YOU_CAN_CREATE_MORE_LINKS, YOU_CAN_CREATE_MORE_LINKS_TOOLTIP } from "@/app/constants";
 
-interface UrlItem {
-  id: string;
-  original_url: string;
-  short_url: string;
-  clicks: number;
-  created_at: string;
-}
 
 export default function Dashboard() {
   const { data: historyData, refetch: refetchHistory } = useUrlHistory();
