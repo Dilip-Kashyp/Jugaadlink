@@ -2,9 +2,9 @@
 import React from 'react';
 import { Layout as AntdLayout, LayoutProps } from 'antd';
 
-const Layout = ({ layoutProps, children }: { layoutProps?: LayoutProps, children?: React.ReactNode }) => {
+const Layout = ({ children, ...props }: LayoutProps & { children: React.ReactNode }) => {
   return (
-    <AntdLayout {...layoutProps}>{children}</AntdLayout>
+    <AntdLayout {...props}>{children}</AntdLayout>
   );
 };
 

@@ -1,13 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Tooltip } from "antd";
-import { Copy, Share2, QrCode, Trash2, BarChart as BarChartIcon } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, LineChart, Line, CartesianGrid, PieChart, Pie, Cell } from "recharts";
+import { Copy, Share2, QrCode, Trash2, BarChart as BarChartIcon, Map, Smartphone, Globe, X, TrendingUp } from "lucide-react";
+import { 
+  BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, 
+  LineChart, Line, CartesianGrid, PieChart, Pie, Cell 
+} from "recharts";
 import { Typography, Flex, Button } from "./index";
 import Empty from "./Empty";
 import { useUrlAnalytics, UrlItem } from "@/app/Services";
 import { PIE_COLORS } from "@/app/constants";
-
 
 interface AnalyticsModalProps {
   open: boolean;
@@ -29,12 +31,13 @@ export default function AnalyticsModal({
   onDelete
 }: AnalyticsModalProps) {
   
-  const [timelineData, setTimelineData] = React.useState<any[]>([]);
-  const [deviceData, setDeviceData] = React.useState<any[]>([]);
-  const [regionData, setRegionData] = React.useState<any[]>([]);
-  const [mounted, setMounted] = React.useState(false);
+  const [timelineData, setTimelineData] = useState<any[]>([]);
+  const [deviceData, setDeviceData] = useState<any[]>([]);
+  const [regionData, setRegionData] = useState<any[]>([]);
+  const [referrerData, setReferrerData] = useState<any[]>([]);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
@@ -42,24 +45,22 @@ export default function AnalyticsModal({
     mutationConfig: {
       onSuccess: (res: any) => {
         const data = res?.data || res || {};
-        // Mapping typical backend formats to the state variables.
-        setTimelineData(data.timeline || data.clicksByDate || data.daily || []);
-        setDeviceData(data.devices || data.device || data.deviceUsage || []);
-        setRegionData(data.regions || data.region || data.locations || []);
+        setTimelineData(data.timeline || []);
+        setDeviceData(data.devices || []);
+        setRegionData(data.regions || []);
+        setReferrerData(data.referrers || []);
       },
-      onError: (err: Error) => {
-        console.error("Analytics fetch error.", err);
+      onError: () => {
         setTimelineData([]);
         setDeviceData([]);
         setRegionData([]);
+        setReferrerData([]);
       }
     }
   });
 
   useEffect(() => {
     if (open && selectedLink) {
-        // Change selectedLink.short_url to short_code, 
-        // since the API expects an identifier for "/url/analytics/{shortCode}"
         analyticsHandler.mutate(selectedLink.short_code || selectedLink.short_url);
     }
   }, [open, selectedLink]);
@@ -70,141 +71,226 @@ export default function AnalyticsModal({
       onCancel={onClose}
       footer={null}
       centered
-      width={900}
-      className="neo-brutal-modal"
-      rootClassName="[&_.ant-modal-content]:!rounded-none [&_.ant-modal-content]:!border-[var(--border-width)] [&_.ant-modal-content]:!border-[var(--border-default)] [&_.ant-modal-content]:!shadow-[var(--shadow-solid)] [&_.ant-modal-content]:!p-0 [&_.ant-modal-content]:!bg-[var(--background)] [&_.ant-modal-close]:hidden"
+      width={1000}
+      className="premium-modal"
+      rootClassName="[&_.ant-modal-content]:!p-0 [&_.ant-modal-content]:!bg-[var(--background)] [&_.ant-modal-close]:!hidden overflow-hidden"
     >
-      <Flex flexProps={{ vertical: true }}>
+      <Flex vertical>
+        {/* Header Strip */}
         <Flex 
-          flexProps={{ 
-            justify: "space-between", 
-            align: "flex-start", 
-            wrap: "wrap", 
-            gap: 16,
-            className: "p-6 border-b-[var(--border-width)] border-[var(--border-default)] relative"
-          }}
+          justify="space-between" 
+          align="center" 
+          className="p-8 border-b border-[var(--border-default)] bg-[var(--background-subtle)]"
         >
-          <Button buttonProps={{ onClick: onClose, className: "absolute top-4 right-4 z-10 !text-xs !tracking-widest", danger: true }}>
-            Close X
-          </Button>
-          
-          <Flex flexProps={{ vertical: true }}>
-            <Flex flexProps={{ align: "center", gap: 8 }}>
-               <BarChartIcon />
-               <Typography typographyProps={{ level: 3, className: "!font-black !uppercase !m-0 !tracking-widest" }}>
-                 DETAILED ANALYTICS
-               </Typography>
-            </Flex>
+          <Flex vertical gap={4}>
+            <div className="flex items-center gap-3">
+               <div className="p-2.5 bg-[var(--primary-subtle)] rounded-xl text-[var(--primary)] shadow-sm">
+                  <BarChartIcon size={22} />
+               </div>
+               <Typography.Title level={3} className="!font-black !m-0 !tracking-tight !text-3xl">
+                 Performance Analytics
+               </Typography.Title>
+            </div>
             {selectedLink && (
-              <Typography typographyProps={{ level: 5, ellipsis: true, className: "!mt-2 !text-sm !font-bold !opacity-80 max-w-sm" }}>
-                Target: {selectedLink.original_url}
-              </Typography>
+              <span className="text-xs font-bold text-[var(--foreground-subtle)] font-mono pl-12 truncate max-w-md opacity-70">
+                {selectedLink.short_url}
+              </span>
             )}
           </Flex>
 
-          {selectedLink && (
-            <Flex flexProps={{ gap: 8 }}>
-              <Tooltip title="Copy">
-                <Button buttonProps={{ onClick: () => onCopy(selectedLink.short_url), icon: <Copy size={18} /> }} />
-              </Tooltip>
-              <Tooltip title="QR Code">
-                <Button buttonProps={{ onClick: () => onQrCode(selectedLink.short_url), icon: <QrCode size={18} /> }} />
-              </Tooltip>
-              <Tooltip title="Share">
-                 <Button buttonProps={{ onClick: () => onShare(selectedLink), icon: <Share2 size={18} /> }} />
-              </Tooltip>
-              <Tooltip title="Delete">
-                 <Button buttonProps={{ onClick: () => { onDelete(selectedLink.short_url); onClose(); }, icon: <Trash2 size={18} />, danger: true }} />
-              </Tooltip>
-            </Flex>
-          )}
+          <Flex align="center" gap={12}>
+            {selectedLink && (
+              <div className="flex items-center gap-1 bg-[var(--background-muted)] p-1.5 rounded-2xl border border-[var(--border-default)]">
+                <Tooltip title="Copy Link">
+                  <Button type="text" shape="circle" onClick={() => onCopy(selectedLink.short_url)} icon={<Copy size={18} />} />
+                </Tooltip>
+                <Tooltip title="QR Code">
+                  <Button type="text" shape="circle" onClick={() => onQrCode(selectedLink.short_url)} icon={<QrCode size={18} />} />
+                </Tooltip>
+                <Tooltip title="Delete Permanently">
+                   <Button type="text" shape="circle" onClick={() => { onDelete(selectedLink.short_url); onClose(); }} icon={<Trash2 size={18} />} danger />
+                </Tooltip>
+              </div>
+            )}
+            <Button onClick={onClose} type="text" shape="circle" className="hover:!bg-[var(--background-muted)]" icon={<X size={20} />} />
+          </Flex>
         </Flex>
 
-        {/* Content */}
+        {/* Content Area */}
         {selectedLink && (
-           <div className="p-6 max-h-[80vh] overflow-y-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                 <Flex flexProps={{ vertical: true, gap: 8, className: "neo-brutal bg-[var(--primary)] p-6 shadow-[4px_4px_0_0_var(--foreground)]" }}>
-                    <Typography typographyProps={{ level: 5, className: "!text-sm !font-bold !uppercase !tracking-widest !m-0" }}>
-                       Link Clicks
-                    </Typography>
-                    <Typography typographyProps={{ level: 2, className: "!text-6xl !font-black !m-0" }}>
+           <div className="p-10 max-h-[75vh] overflow-y-auto bg-[var(--background)]">
+              
+              {/* Highlight Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+                  <div className="premium-card !p-8">
+                    <Typography.Text className="!text-[11px] !font-black !uppercase !tracking-widest !text-[var(--foreground-subtle)] !mb-3 !block">
+                       Total Engagement
+                    </Typography.Text>
+                    <Typography.Title level={2} className="!text-6xl !font-black !m-0 !tracking-[0.02em]">
                        {selectedLink.clicks}
-                    </Typography>
-                 </Flex>
-                 <Flex flexProps={{ vertical: true, gap: 8, className: "neo-brutal bg-[var(--background-muted)] p-6 border-2 border-[var(--border-default)]" }}>
-                    <Typography typographyProps={{ level: 5, className: "!text-sm !font-bold !uppercase !tracking-widest !m-0" }}>
-                       Created At
-                    </Typography>
-                    <Typography typographyProps={{ level: 3, className: "!text-3xl !font-black !m-0" }}>
-                       {new Date(selectedLink.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </Typography>
-                 </Flex>
+                    </Typography.Title>
+                  </div>
+                  <div className="premium-card !p-8 md:col-span-2">
+                    <Typography.Text className="!text-[11px] !font-black !uppercase !tracking-widest !text-[var(--foreground-subtle)] !mb-3 !block">
+                       Destination Profile
+                    </Typography.Text>
+                    <div className="flex items-center gap-3">
+                       <Globe size={20} className="text-[var(--primary)]" />
+                       <span className="text-lg font-bold text-[var(--foreground)] truncate max-w-md">{selectedLink.original_url}</span>
+                    </div>
+                  </div>
               </div>
               
               {selectedLink.clicks === 0 ? (
-                <Flex flexProps={{ justify: 'center', className: 'py-10 neo-brutal bg-[var(--background-muted)] border-2 border-[var(--border-default)]' }}>
-                  <Empty emptyProps={{ description: 'No analytics data available for this link' }} />
-                </Flex>
+                 <div className="py-20 bg-white rounded-3xl border border-dashed border-slate-200 flex flex-col items-center">
+                   <Empty description="Awaiting first engagement pulse..." />
+                 </div>
               ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Traffic Graph */}
-                <Flex flexProps={{ vertical: true, className: "neo-brutal bg-[var(--secondary)] p-6 h-[300px] md:col-span-3" }}>
-                   <Typography typographyProps={{ level: 5, className: "!text-sm !font-black !uppercase !mb-4" }}>
-                      Traffic Forecast (7d)
-                   </Typography>
-                   <div className="flex-grow w-full">
-                     {mounted && (
-                     <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={timelineData}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
-                          <XAxis dataKey="name" stroke="var(--chart-text)" tick={{ fill: 'var(--chart-text)', fontWeight: 'bold', fontSize: 12 }} />
-                          <YAxis stroke="var(--chart-text)" tick={{ fill: 'var(--chart-text)', fontWeight: 'bold', fontSize: 12 }} />
-                          <RechartsTooltip contentStyle={{ backgroundColor: 'var(--chart-tooltip-bg)', color: 'var(--chart-tooltip-text)', border: 'none', borderRadius: '0', fontWeight: 'bold' }} itemStyle={{ color: 'var(--primary)' }} />
-                          <Line type="monotone" dataKey="clicks" stroke="var(--chart-line)" strokeWidth={4} dot={{ strokeWidth: 2, r: 4, fill: 'var(--chart-line)' }} activeDot={{ r: 8 }} />
-                        </LineChart>
-                     </ResponsiveContainer>
-                     )}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                {/* Traffic Trend */}
+                 <div className="premium-card !p-8 lg:col-span-3">
+                    <Typography.Text className="!text-xs !font-black !uppercase !tracking-[0.15em] !text-[var(--foreground-subtle)] !mb-10 !flex !items-center !gap-2">
+                       <TrendingUp size={14}/> Engagement Trend
+                    </Typography.Text>
+                   <div className="h-[280px] w-full">
+                      {mounted && (
+                      <ResponsiveContainer width="100%" height="100%">
+                         <LineChart data={timelineData}>
+                           <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="var(--chart-grid)" />
+                           <XAxis 
+                               dataKey="name" 
+                               axisLine={false} 
+                               tickLine={false} 
+                               tick={{ fill: 'var(--foreground-subtle)', fontWeight: 600, fontSize: 10 }}
+                           />
+                           <YAxis 
+                               axisLine={false} 
+                               tickLine={false} 
+                               tick={{ fill: 'var(--foreground-subtle)', fontWeight: 600, fontSize: 10 }} 
+                           />
+                           <RechartsTooltip 
+                               contentStyle={{ 
+                                   backgroundColor: 'var(--background-subtle)',
+                                   borderRadius: '16px', 
+                                   border: '1px solid var(--border-default)', 
+                                   boxShadow: 'var(--shadow-premium-lg)',
+                                   color: 'var(--foreground)'
+                               }} 
+                           />
+                           <Line 
+                               type="monotone" 
+                               dataKey="clicks" 
+                               stroke="var(--primary)" 
+                               strokeWidth={4} 
+                               dot={false}
+                               activeDot={{ r: 6, strokeWidth: 0, fill: 'var(--primary)' }} 
+                           />
+                         </LineChart>
+                      </ResponsiveContainer>
+                      )}
                    </div>
-                </Flex>
+                </div>
 
-                <Flex flexProps={{ vertical: true, className: "neo-brutal bg-[var(--secondary)] p-6 h-[300px] md:col-span-2" }}>
-                   <Typography typographyProps={{ level: 5, className: "!text-sm !font-black !uppercase !mb-4" }}>
-                      Device Usage
-                   </Typography>
-                   <div className="flex-grow w-full">
-                     {mounted && (
-                     <ResponsiveContainer width="100%" height="100%">
-                       <BarChart data={deviceData}>
-                         <XAxis dataKey="name" stroke="var(--chart-text)" tick={{ fill: 'var(--chart-text)', fontWeight: 'bold', fontSize: 12 }} />
-                         <YAxis stroke="var(--chart-text)" tick={{ fill: 'var(--chart-text)', fontWeight: 'bold', fontSize: 12 }} />
-                         <RechartsTooltip contentStyle={{ backgroundColor: 'var(--chart-tooltip-bg)', color: 'var(--chart-tooltip-text)', border: 'none', fontWeight: 'bold' }} />
-                         <Bar dataKey="value" fill="var(--chart-bar)" stroke="var(--border-default)" strokeWidth={2} />
-                       </BarChart>
-                     </ResponsiveContainer>
-                     )}
+                {/* Referrers */}
+                 <div className="premium-card !p-8 lg:col-span-2">
+                    <Typography.Text className="!text-xs !font-black !uppercase !tracking-[0.15em] !text-[var(--foreground-subtle)] !mb-10 !flex !items-center !gap-2">
+                       <Globe size={14}/> Referral Sources
+                    </Typography.Text>
+                   <div className="h-[220px] w-full">
+                      {mounted && (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={referrerData} layout="vertical">
+                          <XAxis type="number" hide />
+                          <YAxis 
+                             type="category" 
+                             dataKey="name" 
+                             width={120}
+                             axisLine={false} 
+                             tickLine={false} 
+                             tick={{ fill: 'var(--foreground-muted)', fontWeight: 700, fontSize: 11 }}
+                          />
+                          <RechartsTooltip 
+                             contentStyle={{ 
+                                backgroundColor: 'var(--background-subtle)',
+                                borderRadius: '12px', 
+                                border: '1px solid var(--border-default)',
+                                color: 'var(--foreground)'
+                             }} 
+                          />
+                          <Bar dataKey="value" fill="var(--chart-bar)" radius={[0, 6, 6, 0]} barSize={24} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                      )}
                    </div>
-                </Flex>
+                </div>
 
-                <Flex flexProps={{ vertical: true, className: "neo-brutal bg-[var(--secondary)] p-6 h-[300px] md:col-span-1" }}>
-                   <Typography typographyProps={{ level: 5, className: "!text-sm !font-black !uppercase !mb-4" }}>
-                      Regions
-                   </Typography>
-                   <div className="flex-grow w-full">
-                     {mounted && (
-                     <ResponsiveContainer width="100%" height="100%">
-                       <PieChart>
-                         <Pie data={regionData} cx="50%" cy="50%" innerRadius={40} outerRadius={70} paddingAngle={5} dataKey="value" stroke="var(--border-default)" strokeWidth={2}>
-                           {regionData.map((entry, index) => (
-                             <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                           ))}
-                         </Pie>
-                         <RechartsTooltip contentStyle={{ backgroundColor: 'var(--chart-tooltip-bg)', color: 'var(--chart-tooltip-text)', border: 'none', fontWeight: 'bold' }} />
-                       </PieChart>
-                     </ResponsiveContainer>
-                     )}
+                {/* Region Distro */}
+                 <div className="premium-card !p-8">
+                    <Typography.Text className="!text-xs !font-black !uppercase !tracking-[0.15em] !text-[var(--foreground-subtle)] !mb-6 !flex !items-center !gap-2">
+                       <Map size={14}/> Geographic Reach
+                    </Typography.Text>
+                   <div className="h-[220px] w-full">
+                      {mounted && (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie 
+                            data={regionData} 
+                            cx="50%" 
+                            cy="50%" 
+                            innerRadius={60} 
+                            outerRadius={80} 
+                            paddingAngle={8} 
+                            dataKey="value" 
+                            stroke="none"
+                          >
+                            {regionData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <RechartsTooltip 
+                             contentStyle={{ 
+                                backgroundColor: 'var(--background-subtle)',
+                                borderRadius: '12px', 
+                                border: '1px solid var(--border-default)' 
+                             }} 
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                      )}
                    </div>
-                </Flex>
+                </div>
+
+                {/* Device Distro */}
+                 <div className="premium-card !p-8 lg:col-span-3">
+                    <Typography.Text className="!text-xs !font-black !uppercase !tracking-[0.15em] !text-[var(--foreground-subtle)] !mb-10 !flex !items-center !gap-2">
+                       <Smartphone size={14}/> Experience Breakdown
+                    </Typography.Text>
+                   <div className="h-[140px] w-full">
+                      {mounted && (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={deviceData} margin={{ top: 0, bottom: 0 }}>
+                          <XAxis 
+                             dataKey="name" 
+                             axisLine={false} 
+                             tickLine={false} 
+                             tick={{ fill: 'var(--foreground-subtle)', fontWeight: 700, fontSize: 10 }} 
+                          />
+                          <YAxis hide />
+                          <RechartsTooltip 
+                             cursor={{ fill: 'var(--background-muted)', opacity: 0.4 }} 
+                             contentStyle={{ 
+                                backgroundColor: 'var(--background-subtle)',
+                                borderRadius: '12px', 
+                                border: '1px solid var(--border-default)' 
+                             }} 
+                          />
+                          <Bar dataKey="value" fill="var(--accent-gold)" radius={[6, 6, 0, 0]} barSize={48} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                      )}
+                   </div>
+                </div>
               </div>
               )}
            </div>

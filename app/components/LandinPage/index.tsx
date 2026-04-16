@@ -3,8 +3,11 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight, BarChart3, QrCode, Link as LinkIcon, Zap, ShieldCheck } from "lucide-react";
-import { Typography, Button, ThemeToggle } from "../common";
+import { 
+  ArrowUpRight, BarChart3, QrCode, Link as LinkIcon, Zap, ShieldCheck, 
+  MousePointer2, Sparkles, Globe, Layers, ArrowRight
+} from "lucide-react";
+import { Typography, Button, ThemeToggle, Card } from "../common";
 import { useRouter } from "next/navigation";
 import { HERO_SUBTEXT } from "@/app/constants";
 
@@ -21,17 +24,17 @@ export default function LandinPage() {
     if (cardsRef.current.length > 0) {
       gsap.fromTo(
         cardsRef.current,
-        { opacity: 0, scale: 0.95, y: 20 },
+        { opacity: 0, scale: 0.9, y: 30 },
         {
           opacity: 1,
           scale: 1,
           y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "back.out(1.2)",
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: gridRef.current,
-            start: "top 85%",
+            start: "top 80%",
           },
         }
       );
@@ -41,126 +44,163 @@ export default function LandinPage() {
     };
   }, []);
 
-  const addToRefs = (el: HTMLDivElement) => {
+  const addToRefs = (el: HTMLDivElement | null) => {
     if (el && !cardsRef.current.includes(el)) {
       cardsRef.current.push(el);
     }
   };
 
   return (
-    <div className="w-full bg-[var(--background)] text-[var(--foreground)] min-h-screen py-16 px-4 md:px-8 flex flex-col items-center overflow-x-hidden font-body selection:bg-[var(--primary)] selection:text-[var(--foreground)] relative">
-      <div className="absolute top-8 right-8 z-50">
-         <ThemeToggle className="!p-4 bg-[var(--secondary)] shadow-[4px_4px_0_0_var(--foreground)]" />
-      </div>
+    <div className="w-full bg-[var(--background)] text-[var(--foreground)] min-h-screen py-16 px-6 md:px-12 flex flex-col items-center overflow-x-hidden relative selection:bg-indigo-100">
       
-      {/* Trendy Bento Grid Layout */}
-      <div ref={gridRef} className="max-w-[1200px] w-full grid grid-cols-1 md:grid-cols-4 md:grid-rows-[minmax(300px,_auto)_minmax(250px,_auto)_minmax(200px,_auto)] gap-6 relative">
+      {/* Decorative background elements */}
+      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-100/50 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-50/50 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <nav className="max-w-7xl w-full flex justify-between items-center mb-16 lg:mb-24 z-50">
+         <div className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-[var(--primary)] rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-200">J</div>
+            <Typography level={3} className="!font-black !tracking-tighter !m-0 !text-2xl">jugaadlink.</Typography>
+         </div>
+         <div className="flex items-center gap-6">
+            <ThemeToggle className="!p-2.5 !bg-white !shadow-sm !rounded-xl !border !border-slate-100" />
+            <Button onClick={() => router.push('/dashboard')} className="!hidden md:!flex !items-center !gap-2 !font-bold">
+               Log In <ArrowRight size={16} />
+            </Button>
+         </div>
+      </nav>
+      
+      {/* Bento Grid Layout */}
+      <div ref={gridRef} className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-12 gap-6 relative">
         
-        {/* 1. Hero Bento Card (Spans 2 columns, 2 rows aesthetically) */}
+        {/* 1. Main Hero Card */}
         <div 
           ref={addToRefs} 
-          className="md:col-span-2 md:row-span-2 bg-[var(--secondary)] neo-brutal p-8 md:p-12 flex flex-col justify-between border-[var(--border-width)] border-[var(--border-default)] shadow-[8px_8px_0_0_var(--foreground)] hover:-translate-y-1 hover:shadow-[12px_12px_0_0_var(--foreground)] transition-all"
+          className="md:col-span-8 md:row-span-2 premium-card !p-12 md:!p-20 flex flex-col justify-between border-slate-100 bg-white group overflow-hidden relative"
         >
-          <div>
-            <div className="inline-flex items-center gap-2 bg-[var(--primary)] px-3 py-1 border-[var(--border-width)] border-[var(--border-default)] text-xs font-black uppercase tracking-widest mb-8 -rotate-2">
-              <Zap size={14} className="fill-current" /> Next-Gen Platform
+          <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity">
+             <Layers size={400} />
+          </div>
+          
+          <div className="relative z-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-[11px] font-black uppercase tracking-widest mb-10">
+              <Sparkles size={14} className="fill-current" /> Leading Shortening Architecture
             </div>
-            <Typography typographyProps={{ level: 1, className: "!text-5xl md:!text-7xl !font-black !font-heading leading-[0.9] tracking-tighter" }}>
-              The Clever Way <br/> To Manage <br/> Your Links.
-            </Typography>
-            <p className="mt-8 font-bold text-lg opacity-80 leading-relaxed max-w-md">
+            <h1 className="text-5xl md:text-8xl font-black font-heading tracking-tight leading-[0.9] mb-8 text-slate-900">
+              Smart links. <br/> <span className="text-indigo-600">Pure impact.</span>
+            </h1>
+            <p className="font-medium text-xl text-slate-500 leading-relaxed max-w-xl">
               {HERO_SUBTEXT}
             </p>
           </div>
           
-          <div className="mt-12 flex gap-4">
-             <Button buttonProps={{ 
-               type: "primary", 
-               onClick: () => router.push('/dashboard'),
-               className: "!bg-[var(--foreground)] !text-[var(--secondary)] !border-[var(--border-width)] !border-[var(--foreground)] hover:!bg-[var(--primary)] hover:!text-[var(--foreground)] !h-14 !px-8 !text-lg !font-black uppercase tracking-widest flex items-center gap-2"
-             }}>
-               Start Free <ArrowUpRight size={20} className="stroke-[3px]" />
+          <div className="mt-16 flex flex-wrap gap-4 relative z-10">
+             <Button
+                type="primary" 
+                onClick={() => router.push('/dashboard')}
+                className="!h-16 !px-10 !text-xl !font-black !rounded-2xl !bg-indigo-600 !shadow-2xl !shadow-indigo-200 hover:!bg-indigo-700 hover:!scale-105 active:!scale-95 transition-all flex items-center gap-3"
+             >
+               Get Started Now <ArrowUpRight size={22} />
              </Button>
+             <div className="flex -space-x-3 items-center ml-4">
+                {[1,2,3].map(i => (
+                   <div key={i} className="w-10 h-10 rounded-full border-4 border-white bg-slate-200 flex items-center justify-center text-[10px] font-bold overflow-hidden">
+                      <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="user" />
+                   </div>
+                ))}
+                <span className="pl-6 text-xs font-bold text-slate-400">Trusted by 10k+ creators</span>
+             </div>
           </div>
         </div>
 
-        {/* 2. QR Code Generation Card (High review trend) */}
-        <div ref={addToRefs} className="md:col-span-1 md:row-span-1 bg-[var(--primary)] p-8 border-[var(--border-width)] border-[var(--border-default)] flex flex-col justify-between group overflow-hidden relative">
-          <div className="absolute -right-8 -bottom-8 opacity-20 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-500">
-             <QrCode size={150} />
+        {/* 2. QR Code Card */}
+        <div ref={addToRefs} className="md:col-span-4 md:row-span-1 premium-card !bg-indigo-600 text-white !p-10 flex flex-col justify-between group overflow-hidden border-none shadow-indigo-100">
+          <div className="absolute -right-12 -bottom-12 opacity-10 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-700">
+             <QrCode size={220} />
           </div>
           <div className="z-10 relative">
-             <div className="w-12 h-12 bg-[var(--secondary)] border-[var(--border-width)] border-[var(--border-default)] flex items-center justify-center mb-6">
-                <QrCode size={24} className="text-[var(--foreground)]" />
+             <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/20">
+                <QrCode size={28} />
              </div>
-             <h3 className="text-2xl font-black font-heading leading-tight">Branded<br/>QR Codes</h3>
-             <p className="mt-2 text-sm font-bold opacity-80 uppercase tracking-wider">Bridge offline & online</p>
-             <a href="#" className="mt-4 font-black uppercase text-xs tracking-widest flex items-center gap-1 group/link w-max">
-               Learn more <ArrowUpRight size={14} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-             </a>
+             <h3 className="text-3xl font-black font-heading leading-tight mb-2">Dynamic<br/>QR Flow</h3>
+             <p className="text-indigo-100 font-medium text-sm">Convert offline pulses to online impact with custom branded codes.</p>
+          </div>
+          <div className="z-10 relative mt-6">
+             <span className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest hover:gap-4 transition-all cursor-pointer">
+                Explore tech <ArrowRight size={14} />
+             </span>
           </div>
         </div>
 
-        {/* 3. Advanced Analytics Card (High review trend) */}
-        <div ref={addToRefs} className="md:col-span-1 md:row-span-1 bg-[var(--foreground)] text-[var(--secondary)] p-8 border-[var(--border-width)] border-[var(--border-default)] flex flex-col justify-between group">
-           <div className="flex justify-between items-start mb-6">
-              <div className="w-12 h-12 bg-[var(--secondary)] text-[var(--foreground)] border-[var(--border-width)] border-[var(--border-default)] flex items-center justify-center -rotate-6">
-                 <BarChart3 size={24} />
+        {/* 3. Analytics Card */}
+        <div ref={addToRefs} className="md:col-span-4 md:row-span-1 premium-card !bg-slate-900 text-white !p-10 flex flex-col justify-between group overflow-hidden border-none">
+           <div className="flex justify-between items-start mb-8">
+              <div className="w-14 h-14 bg-indigo-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
+                 <BarChart3 size={28} />
               </div>
-              <span className="text-xs uppercase font-black tracking-widest px-2 py-1 bg-[var(--accent-gray)]">Live</span>
+              <div className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest border border-emerald-500/30">
+                 Realtime
+              </div>
            </div>
            <div>
-             <h3 className="text-2xl font-black font-heading leading-tight mb-2">Deep<br/>Analytics</h3>
-             <div className="flex items-end gap-2 mt-4">
-               <div className="w-2 h-4 bg-[var(--primary)] group-hover:h-8 transition-all duration-300"></div>
-               <div className="w-2 h-6 bg-[var(--primary)] group-hover:h-12 transition-all duration-300 delay-100"></div>
-               <div className="w-2 h-3 bg-[var(--primary)] group-hover:h-10 transition-all duration-300 delay-200"></div>
-               <div className="w-2 h-8 bg-[var(--primary)] group-hover:h-16 transition-all duration-300 delay-300"></div>
+             <h3 className="text-3xl font-black font-heading leading-tight mb-3">Live Insights</h3>
+             <p className="text-slate-400 text-sm font-medium mb-6">Granular tracking of origin, device, and behavior for every engagement.</p>
+             <div className="flex items-end gap-1.5 h-10">
+                {[4,8,6,10,7].map((h, i) => (
+                   <div key={i} className={`w-1 bg-indigo-500/40 group-hover:bg-indigo-400 transition-all duration-500`} style={{ height: `${h * 10}%` }}></div>
+                ))}
              </div>
-             <a href="#" className="mt-6 font-black uppercase text-xs tracking-widest flex items-center gap-1 group/link w-max">
-               Learn more <ArrowUpRight size={14} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-             </a>
            </div>
         </div>
 
-        {/* 4. Link Management / Routing (High review trend) */}
-        <div ref={addToRefs} className="md:col-span-2 md:row-span-1 bg-[var(--background-muted)] p-8 border-[var(--border-width)] border-[var(--border-default)] flex flex-col justify-center">
-           <div className="flex items-center gap-6">
-              <div className="w-16 h-16 bg-[var(--secondary)] border-[var(--border-width)] border-[var(--border-default)] rounded-full flex items-center justify-center shrink-0">
-                <LinkIcon size={28} className="text-[var(--primary)] stroke-[3px]" />
+        {/* 4. Engine Detail */}
+        <div ref={addToRefs} className="md:col-span-6 md:row-span-1 premium-card !p-12 border-slate-100 bg-white flex flex-col justify-center">
+           <div className="flex items-center gap-10">
+              <div className="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center shrink-0 border border-emerald-100 text-emerald-600">
+                <Globe size={40} className="animate-pulse" />
               </div>
               <div>
-                <h3 className="text-3xl font-black font-heading mb-2">Jugaadlink Engine</h3>
-                <p className="font-bold opacity-70 text-sm md:text-base">Custom domains, ultra-fast routing, and secure link management designed for scale.</p>
+                <h3 className="text-3xl font-black font-heading mb-3 tracking-tight">Global Routing Layer</h3>
+                <p className="text-slate-500 font-medium text-lg leading-relaxed">Low-latency edge redirection service ensuring your links resolve in under 20ms worldwide.</p>
               </div>
            </div>
         </div>
 
-        {/* 5. Trust / Security Card */}
-        <div ref={addToRefs} className="md:col-span-1 md:row-span-1 bg-[var(--accent-yellow)] p-8 border-[var(--border-width)] border-[var(--border-default)] flex flex-col justify-center items-center text-center">
-          <ShieldCheck size={48} className="mb-4 stroke-[2px]" />
-          <h3 className="text-xl font-black font-heading">Secure by Design</h3>
-          <p className="text-xs font-bold uppercase tracking-widest mt-2 opacity-80">99.9% Uptime SLA</p>
+        {/* 5. Security Summary */}
+        <div ref={addToRefs} className="md:col-span-3 md:row-span-1 premium-card !bg-amber-50 border-amber-100 !p-10 flex flex-col justify-center items-center text-center">
+          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-md mb-6 text-amber-500">
+             <ShieldCheck size={36} />
+          </div>
+          <h3 className="text-2xl font-black font-heading mb-1">Secure Core</h3>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-600 opacity-80">Encryption first</p>
         </div>
 
-        {/* 6. Social Proof / Quote */}
-        <div ref={addToRefs} className="md:col-span-3 md:row-span-1 bg-[var(--secondary)] p-8 md:p-10 border-[var(--border-width)] border-[var(--border-default)] flex flex-col md:flex-row items-center justify-between gap-8 shadow-[6px_6px_0_0_var(--primary)]">
-           <Typography typographyProps={{ level: 4, className: "!font-black !leading-tight !text-xl md:!text-3xl m-0 max-w-2xl" }}>
-             "Jugaadlink completely changed how we manage our campaign infrastructure. It's simply the cleverest tool in our stack."
-           </Typography>
-           <div className="flex items-center gap-4 shrink-0 border-l-0 md:border-l-[var(--border-width)] border-[var(--border-default)] pt-4 md:pt-0 md:pl-8 mt-4 md:mt-0 w-full md:w-auto">
-             <div className="w-15 h-15 bg-[var(--primary)] border-[var(--border-width)] border-[var(--border-default)] flex items-center justify-center p-2 font-black text-xs uppercase text-center break-all leading-none">
-                Dev
+        {/* 6. Testimonial */}
+        <div ref={addToRefs} className="md:col-span-3 md:row-span-1 premium-card border-slate-100 !bg-white !p-10 flex flex-col justify-between">
+           <Typography.Text className="!font-bold !italic !text-slate-600 !leading-relaxed !text-lg !m-0">
+             "The advanced referral tracking is a game changer for our growth team."
+           </Typography.Text>
+           <div className="flex items-center gap-4 mt-8">
+             <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center overflow-hidden grayscale">
+                <img src="https://i.pravatar.cc/100?img=12" alt="avatar" />
              </div>
              <div>
-               <p className="font-black text-sm m-0">Dilip Kumar</p>
-               <p className="text-xs m-0 font-bold opacity-80 uppercase tracking-widest">Engineer </p>
+               <p className="font-black text-sm m-0 text-slate-900">Alex Rivera</p>
+               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Product at Linear</span>
              </div>
            </div>
         </div>
 
       </div>
 
+      <footer className="mt-24 py-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl w-full text-slate-400">
+         <p className="text-xs font-bold font-mono">© 2026 JUGAADLINK CLOUD INC.</p>
+         <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest">
+            <a href="#" className="hover:text-indigo-600 transition-colors">Privacy</a>
+            <a href="#" className="hover:text-indigo-600 transition-colors">Infrastructure</a>
+            <a href="#" className="hover:text-indigo-600 transition-colors">Global Network</a>
+         </div>
+      </footer>
     </div>
   );
 }

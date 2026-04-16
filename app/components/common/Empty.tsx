@@ -2,9 +2,9 @@
 import React from 'react';
 import { Empty as AntdEmpty, EmptyProps } from 'antd';
 
-const Empty = ({ emptyProps }: { emptyProps?: EmptyProps }) => {
+const Empty = (props: EmptyProps) => {
   return (
-    <AntdEmpty {...emptyProps} />
+    <AntdEmpty {...props} />
   );
 };
 

@@ -1,6 +1,8 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
+import { ConfigProvider, theme as antdTheme } from 'antd';
+
 type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
@@ -31,7 +33,18 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+      <ConfigProvider
+        theme={{
+          algorithm: theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+          token: {
+            colorPrimary: '#4F46E5',
+            borderRadius: 10,
+            fontFamily: "'Inter', sans-serif",
+          },
+        }}
+      >
+        {children}
+      </ConfigProvider>
     </ThemeContext.Provider>
   );
 };

@@ -2,9 +2,9 @@
 import React from 'react';
 import { Drawer as AntdDrawer, DrawerProps } from 'antd';
 
-const Drawer = ({ drawerProps, children }: { drawerProps: DrawerProps, children?: React.ReactNode }) => {
+const Drawer = ({ children, ...props }: DrawerProps & { children?: React.ReactNode }) => {
   return (
-    <AntdDrawer {...drawerProps}>{children}</AntdDrawer>
+    <AntdDrawer {...props}>{children}</AntdDrawer>
   );
 };
 

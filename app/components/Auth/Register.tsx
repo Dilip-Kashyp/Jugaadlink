@@ -40,24 +40,24 @@ const Register: React.FC = () => {
       formItemProps: {
         rules: [{ required: true, message: 'Please input your name!' }],
       },
-      children: <Input type="text" inputProps={{ placeholder: 'Full Name', size: 'large', className: "!bg-[var(--secondary)] !border-[var(--border-width)] !border-[var(--border-default)] !shadow-[2px_2px_0_0_var(--border-default)]" }} />,
+      children: <Input type="text" placeholder="Full Name" size="large" className="!bg-[var(--secondary)] !border-[var(--border-width)] !border-[var(--border-default)] !shadow-[2px_2px_0_0_var(--border-default)]" />,
     },
     {
       name: 'email',
       formItemProps: {
         rules: [{ required: true, message: 'Please input your email!', type: 'email' }],
       },
-      children: <Input type="email" inputProps={{ placeholder: 'Email Address', size: 'large', className: "!bg-[var(--secondary)] !border-[var(--border-width)] !border-[var(--border-default)] !shadow-[2px_2px_0_0_var(--border-default)]" }} />,
+      children: <Input type="email" placeholder="Email Address" size="large" className="!bg-[var(--secondary)] !border-[var(--border-width)] !border-[var(--border-default)] !shadow-[2px_2px_0_0_var(--border-default)]" />,
     },
     {
       name: 'password',
       formItemProps: {
         rules: [{ required: true, message: 'Please input your password!' }],
       },
-      children: <Input type="password" inputProps={{ placeholder: 'Password', size: 'large', className: "!bg-[var(--secondary)] !border-[var(--border-width)] !border-[var(--border-default)] !shadow-[2px_2px_0_0_var(--border-default)]" }} />,
+      children: <Input type="password" placeholder="Password" size="large" className="!bg-[var(--secondary)] !border-[var(--border-width)] !border-[var(--border-default)] !shadow-[2px_2px_0_0_var(--border-default)]" />,
     },
     {
-      children: <Button buttonProps={{ type: 'primary', htmlType: 'submit', loading: isPending, block: true, size: 'large', className: "!bg-[var(--foreground)] !text-[var(--secondary)] !border-[var(--border-width)] !border-[var(--border-default)] hover:!bg-[var(--primary)] hover:!text-[var(--foreground)] transition-colors !h-12 !font-black !uppercase tracking-widest shadow-[4px_4px_0_0_var(--border-default)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none" }}>
+      children: <Button type="primary" htmlType="submit" loading={isPending} block size="large" className="!bg-[var(--foreground)] !text-[var(--secondary)] !border-[var(--border-width)] !border-[var(--border-default)] hover:!bg-[var(--primary)] hover:!text-[var(--foreground)] transition-colors !h-12 !font-black !uppercase tracking-widest shadow-[4px_4px_0_0_var(--border-default)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
         {REGISTER}
       </Button>
     }
@@ -74,7 +74,7 @@ const Register: React.FC = () => {
           <h2 className="font-heading font-black text-5xl leading-tight mb-8 text-[var(--foreground)]">
             CREATE<br/>ACCOUNT.
           </h2>
-          <Form formProps={{ onFinish, layout: 'vertical' }} formItem={formItem} />
+          <Form onFinish={onFinish} layout="vertical" items={formItem} />
           <div className="mt-8 font-bold text-center text-sm uppercase tracking-widest border-t-[var(--border-width)] border-[var(--border-default)] pt-6 text-[var(--foreground-subtle)]">
             {ALREADY_HAVE_AN_ACCOUNT} 
             <Link href="/login" className="text-[var(--primary)] border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--foreground)] px-2 py-1 ml-1 transition-all">{LOGIN}</Link>

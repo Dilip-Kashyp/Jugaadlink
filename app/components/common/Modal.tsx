@@ -2,9 +2,9 @@
 import React from 'react';
 import { Modal as AntdModal, ModalProps } from 'antd';
 
-const Modal = ({ modalProps, children }: { modalProps: ModalProps, children: React.ReactNode }) => {
+const Modal = ({ children, ...props }: ModalProps & { children: React.ReactNode }) => {
   return (
-    <AntdModal {...modalProps}>{children}</AntdModal>
+    <AntdModal {...props}>{children}</AntdModal>
   );
 };
 

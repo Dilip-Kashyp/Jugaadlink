@@ -24,6 +24,11 @@ export const DASHBOARD_CONSTANTS = {
     PLACEHOLDER: "https://very-long-url.com/xyz...",
     BUTTON_LOADING: "Generating...",
     BUTTON_DEFAULT: "Shrink",
+    ADVANCED_OPTIONS: "Advanced Link Settings",
+    PASSWORD: "Password Protection",
+    MAX_CLICKS: "Maximum Click Limit",
+    EXPIRY_DATE: "Auto-Expiration Date",
+    PREVIEW_TITLE: "Link Preview",
   },
   PERFORMANCE: {
     HEADING: "PERFORMANCE",
@@ -32,6 +37,7 @@ export const DASHBOARD_CONSTANTS = {
     AVG_CLICKS: "Avg Clicks / Link",
     TRAFFIC_FORECAST: "Traffic Forecast (7d)",
     TOP_PERFORMING: "Top Performing Links",
+    LAST_7_DAYS: "New Links (7d)",
   },
   HISTORY: {
     HEADING: "HISTORY LOG",

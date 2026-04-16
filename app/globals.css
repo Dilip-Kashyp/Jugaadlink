@@ -1,267 +1,244 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap');
 
 @import "tailwindcss";
 
 :root {
-  --background: #F9FAFB;
-  --background-muted: #F3F4F6;
+  --background: #F8FAFC;
+  --background-muted: #F1F5F9;
   --background-subtle: #FFFFFF;
 
   /* Typography */
-  --font-heading: 'Syne', sans-serif;
-  --font-body: 'Space Mono', monospace;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
 
   /* Foreground / Text */
-  --foreground: #111827;
-  --foreground-muted: #374151;
-  --foreground-subtle: #4B5563;
-  --foreground-placeholder: #9CA3AF;
+  --foreground: #0F172A;
+  --foreground-muted: #475569;
+  --foreground-subtle: #64748B;
+  --foreground-placeholder: #94A3B8;
 
   /* Borders */
-  --border-default: #111827;
-  --border-muted: #111827;
-  --border-width: 2px;
+  --border-default: #E2E8F0;
+  --border-muted: #F1F5F9;
+  --border-width: 1px;
 
-  /* Primary (CTA / Buttons) */
-  --primary: #A7F3D0; /* Soft Mint Green */
-  --primary-foreground: #111827;
+  /* Primary (Premium Indigo) */
+  --primary: #4F46E5; 
+  --primary-foreground: #FFFFFF;
+  --primary-subtle: rgba(79, 70, 229, 0.08);
 
-  --hover-primary: #6EE7B7;
-  --hover-primary-foreground: #111827;
+  --hover-primary: #4338CA;
+  --hover-primary-foreground: #FFFFFF;
 
-  --hover-default: #F3F4F6;
-  --hover-default-foreground: #111827;
+  --hover-default: #F8FAFC;
+  --hover-default-foreground: #0F172A;
 
   /* Secondary / Utility */
   --secondary: #FFFFFF;
-  --secondary-foreground: #111827;
+  --secondary-foreground: #0F172A;
 
   /* Status */
   --success: #10B981;
+  --success-bg: rgba(16, 185, 129, 0.1);
   --warning: #F59E0B;
   --error: #EF4444;
 
   /* Chart Colors */
-  --chart-grid: #E5E7EB;
-  --chart-text: #111827;
-  --chart-tooltip-bg: #111827;
-  --chart-tooltip-text: #FFFFFF;
-  --chart-line: #10B981;
-  --chart-bar: #A7F3D0;
+  --chart-grid: #F1F5F9;
+  --chart-text: #64748B;
+  --chart-tooltip-bg: #FFFFFF;
+  --chart-tooltip-text: #0F172A;
+  --chart-line: #4F46E5;
+  --chart-bar: #818CF8;
 
-  /* Special Colors (Migrating from Landing Page) */
-  --accent-yellow: #FDE047;
-  --accent-gray: #374151;
-
-  /* Spacing */
-  --section-padding: 80px 0;
-  --container-max: 1200px;
-  --container-padding: 0 24px;
+  /* Premium Accents */
+  --accent-gold: #F59E0B;
+  --accent-slate: #1E293B;
 
   /* Radius */
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-full: 0px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
 
-  /* Shadows - Less overwhelming */
-  --shadow-solid: 4px 4px 0px 0px #111827;
-  --shadow-solid-sm: 2px 2px 0px 0px #111827;
-  --shadow-solid-hover: 0px 0px 0px 0px #111827;
+  /* Shadows - Premium Soft */
+  --shadow-premium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-premium-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
 :root[class~="dark"] {
-    --background: #111827;
-    --background-muted: #1F2937;
-    --background-subtle: #374151;
-    --foreground: #F9FAFB;
-    --foreground-muted: #D1D5DB;
-    --foreground-subtle: #9CA3AF;
-    --foreground-placeholder: #6B7280;
-    --border-default: #F3F4F6;
-    --border-muted: #D1D5DB;
-    --primary: #10B981; 
-    --primary-foreground: #111827;
-    --hover-primary: #059669;
-    --hover-primary-foreground: #111827;
-    --hover-default: #374151;
-    --hover-default-foreground: #F9FAFB;
-    --secondary: #1F2937;
-    --secondary-foreground: #F9FAFB;
-    --shadow-solid: 4px 4px 0px 0px #F3F4F6;
-    --shadow-solid-sm: 2px 2px 0px 0px #F3F4F6;
-    --shadow-solid-hover: 0px 0px 0px 0px #F3F4F6;
-
-    /* Chart Dark Mode */
-    --chart-grid: #374151;
-    --chart-text: #F9FAFB;
-    --chart-tooltip-bg: #F9FAFB;
-    --chart-tooltip-text: #111827;
-    --chart-line: #34D399;
-    --chart-bar: #059669;
-
-    --accent-yellow: #CA8A04;
-    --accent-gray: #4B5563;
+    --background: #020617;
+    --background-muted: #0F172A;
+    --background-subtle: #0f172a;
+    --foreground: #F8FAFC;
+    --foreground-muted: #94A3B8;
+    --foreground-subtle: #64748B;
+    --border-default: #1e293b;
+    --primary: #6366F1;
+    --primary-subtle: rgba(99, 102, 241, 0.15);
+    --secondary: #0F172A;
+    
+    --shadow-premium: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+    --chart-grid: #1E293B;
 }
 
 body {
   font-family: var(--font-body);
   background-color: var(--background);
   color: var(--foreground);
-  padding: 0;
-  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6, .ant-typography {
   font-family: var(--font-heading) !important;
-  font-weight: 800 !important;
-  color: var(--foreground) !important;
-}
-
-/* Base Component Styles for Neo-Brutalism */
-.neo-brutal {
-  border: var(--border-width) solid var(--border-default) !important;
-  box-shadow: var(--shadow-solid) !important;
-  transition: all 0.2s ease-in-out;
-  background-color: var(--secondary) !important;
-}
-
-/* Button Overrides */
-.ant-btn {
-  border-radius: 0 !important;
-  border: var(--border-width) solid var(--border-default) !important;
-  box-shadow: var(--shadow-solid-sm) !important;
-  font-family: var(--font-heading) !important;
   font-weight: 700 !important;
-  transition: all 0.15s ease !important;
-  text-transform: uppercase;
-}
-
-.ant-btn:active {
-  transform: translate(2px, 2px) !important;
-  box-shadow: var(--shadow-solid-hover) !important;
-}
-
-.ant-btn-primary, 
-.ant-btn-primary:focus {
-  background-color: var(--primary) !important;
-  color: var(--primary-foreground) !important;
-}
-
-.ant-btn-primary:active {
-  background-color: var(--primary) !important;
-}
-
-.ant-btn-primary:hover {  
-  background-color: var(--hover-primary) !important;
-  color: var(--hover-primary-foreground) !important;
-}
-
-.ant-btn-default {
-  background-color: var(--secondary) !important;
   color: var(--foreground) !important;
+  letter-spacing: -0.02em !important;
 }
 
-.ant-btn-default:hover,
-.ant-btn-default:focus:hover {  
-  background-color: var(--hover-default) !important;
-  color: var(--hover-default-foreground) !important;
+/* Premium Component Utilities */
+.premium-card {
+  background: var(--background-subtle);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-premium);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Input & Card Overrides */
-.ant-input, .ant-input-password, .ant-picker, .ant-select-selector {
-  border-radius: 0 !important;
-  border: var(--border-width) solid var(--border-default) !important;
-  box-shadow: var(--shadow-solid-sm) !important;
-  background-color: var(--secondary) !important;
+.premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-premium-lg);
+  border-color: var(--primary);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Ant Design Overrides for Premium Theme */
+.ant-btn {
+  border-radius: var(--radius-md) !important;
+  font-weight: 600 !important;
   font-family: var(--font-body) !important;
+  height: auto !important;
+  padding: 10px 24px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.ant-btn-primary {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.ant-btn-primary:hover {
+  background: var(--hover-primary) !important;
+  transform: scale(1.02);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2) !important;
+}
+
+.ant-input, .ant-input-password, .ant-picker {
+  background: var(--background-subtle) !important;
+  color: var(--foreground) !important;
+  border-radius: var(--radius-md) !important;
+  border-color: var(--border-default) !important;
+  padding: 12px 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.ant-input::placeholder {
+  color: var(--foreground-placeholder) !important;
 }
 
 .ant-input:focus, .ant-input-focused {
-  box-shadow: var(--shadow-solid) !important;
-  border-color: var(--border-default) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px var(--primary-subtle) !important;
 }
 
-.ant-card {
-  border-radius: 0 !important;
-  border: var(--border-width) solid var(--border-default) !important;
-  box-shadow: var(--shadow-solid) !important;
-  background-color: var(--background-subtle) !important;
+.ant-modal-content {
+  background: var(--background-subtle) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border-default) !important;
 }
 
-/* Table */
+.ant-modal-header {
+    background: var(--background-subtle) !important;
+    border-bottom: 1px solid var(--border-default) !important;
+    padding: 20px 24px !important;
+}
+
+.ant-modal-title {
+    color: var(--foreground) !important;
+}
+
 .ant-table-wrapper {
-  border: var(--border-width) solid var(--border-default) !important;
-  box-shadow: var(--shadow-solid) !important;
+  background: var(--background-subtle) !important;
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border-default) !important;
+}
+
+.ant-table {
+    background: transparent !important;
+    color: var(--foreground) !important;
 }
 
 .ant-table-thead > tr > th {
-  background-color: #000000 !important;
-  color: #FFFFFF !important;
-  font-weight: 700 !important;
-  font-family: var(--font-heading) !important;
-  border-radius: 0 !important;
-  text-transform: uppercase;
+  background: var(--background-muted) !important;
+  color: var(--foreground-muted) !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid var(--border-default) !important;
 }
 
 .ant-table-tbody > tr > td {
-  border-bottom: 2px solid var(--border-default) !important;
+    border-bottom: 1px solid var(--border-default) !important;
 }
 
-/* Pagination */
-.ant-pagination-item,
-.ant-pagination-prev,
-.ant-pagination-next {
-  border-radius: 0 !important;
-  border: var(--border-width) solid var(--border-default) !important;
-  box-shadow: var(--shadow-solid-sm) !important;
+.ant-table-row:hover > td {
+    background: var(--background-muted) !important;
 }
 
-.ant-pagination-item a {
-  color: var(--foreground) !important;
-  font-family: var(--font-heading) !important;
-  font-weight: 700 !important;
+/* Custom Scrollbar for Premium Feel */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.ant-pagination-item-active {
-  background-color: var(--primary) !important;
+::-webkit-scrollbar-track {
+  background: var(--background);
 }
 
-.ant-pagination-item-active a {
-  color: var(--primary-foreground) !important;
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 10px;
+  border: 2px solid var(--background);
 }
 
-.ant-pagination-item:hover,
-.ant-pagination-prev:hover,
-.ant-pagination-next:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: var(--shadow-solid) !important;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground-subtle);
 }
 
-/* Antd Message Overrides for Neo-Brutalism */
-.ant-message-notice-content {
-  border: var(--border-width) solid var(--border-default) !important;
-  box-shadow: var(--shadow-solid-sm) !important;
-  border-radius: 0 !important;
-  padding: 12px 24px !important;
-  font-family: var(--font-body) !important;
-  font-weight: 700 !important;
-  text-transform: uppercase;
-  background-color: var(--secondary) !important;
-  color: var(--foreground) !important;
+/* Premium Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.ant-message-success .ant-message-notice-content {
-  background-color: var(--primary) !important;
-  color: var(--foreground) !important;
-}
-
-.ant-message-error .ant-message-notice-content {
-  background-color: var(--error) !important;
-  color: #FFFFFF !important;
-}
-
-.ant-message-info .ant-message-notice-content {
-  background-color: #BBE9FF !important;
+.animate-premium {
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

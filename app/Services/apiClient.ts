@@ -19,8 +19,8 @@ function authRequestInterceptor(config: any) {
 }
 
 export const api = Axios.create({
-  // baseURL: "http://localhost:8080/api/v1",
-  baseURL: "https://url-shortener-be.duckdns.org/api/v1",
+  baseURL: "http://localhost:8080/api/v1",
+  // baseURL: "https://url-shortener-be.duckdns.org/api/v1",
 });
 
 api.interceptors.request.use(authRequestInterceptor);

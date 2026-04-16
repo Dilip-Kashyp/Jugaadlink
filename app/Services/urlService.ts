@@ -16,9 +16,23 @@ export interface UrlHistoryResponse {
   };
 }
 
-export const shortenUrl = async (data: { original_url: string }) => {
+export const shortenUrl = async (data: { 
+  original_url: string;
+  password?: string;
+  max_clicks?: number;
+  expires_at?: string;
+}) => {
   try {
     const response = await api.post(API_ENDPOINTS.SHORTEN, data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getLinkPreview = async (url: string) => {
+  try {
+    const response = await api.get(`${API_ENDPOINTS.PREVIEW}?url=${encodeURIComponent(url)}`);
     return response;
   } catch (error) {
     throw error;

@@ -20,17 +20,15 @@ export default function Navbar() {
         {isLoading ? (
           <div className="w-20 h-8 bg-black/10 animate-pulse" />
         ) : user ? (
-          <Flex flexProps={{ gap: 4, align: "center" }}>
-            <Typography typographyProps={{ level: 5, className: "!mb-0 font-bold" }}>
+          <Flex gap={4} align="center">
+            <Typography level={5} className="!mb-0 font-bold">
               Hi, {user?.data?.[0]?.name || "User"}
             </Typography>
             <Button
-              buttonProps={{
-                type: "default",
-                icon: <LogOut size={16} />,
-                onClick: logout,
-                className: "neo-brutal flex items-center gap-2 font-bold ml-4",
-              }}
+              type="default"
+              icon={<LogOut size={16} />}
+              onClick={logout}
+              className="neo-brutal flex items-center gap-2 font-bold ml-4"
             >
               Logout
             </Button>
@@ -38,10 +36,8 @@ export default function Navbar() {
         ) : (
           <Link href="/login">
             <Button
-              buttonProps={{
-                type: "primary",
-                className: "neo-brutal !bg-black !text-white !px-6 !h-11 flex items-center gap-2 font-bold",
-              }}
+              type="primary"
+              className="neo-brutal !bg-black !text-white !px-6 !h-11 flex items-center gap-2 font-bold"
             >
               <span className="mr-1">{LOGIN}</span>
               <LogIn size={16} />

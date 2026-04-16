@@ -3,22 +3,22 @@ import React from 'react';
 interface ContainerProps {
   children: React.ReactNode;
   className?: string;
-  width?: string;
-  height?: string;
-  borderRadius?: string;
+  width?: string | number;
+  height?: string | number;
+  borderRadius?: string | number;
 }
 
 const Container: React.FC<ContainerProps> = ({ 
   children, 
-  className, 
+  className = "", 
   width = '1200px', 
-  height = '100vh',
+  height = 'auto',
   borderRadius,
 }) => {
   return (
     <div className="flex w-full justify-center">
       <div 
-        className={`${className}`} 
+        className={className} 
         style={{ 
           width: width, 
           height: height,
@@ -31,6 +31,5 @@ const Container: React.FC<ContainerProps> = ({
     </div>
   );
 };
-
 
 export default Container;

@@ -12,9 +12,10 @@ export const API_ENDPOINTS = {
     GET_USER: "/user/get-user",
     HISTORY: "/url/history",
     PING: "/test/ping",
-    REDIRECT: "/url/redirect",
+    REDIRECT: "/r/",
     DELETE: "/url",
     ANALYTICS: "/url/analytics",
+    PREVIEW: "/url/preview",
 }
 
 export const LOGIN_URL = "/login";

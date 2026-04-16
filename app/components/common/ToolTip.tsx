@@ -1,9 +1,9 @@
 import React from 'react';
 import { Tooltip as AntdTooltip, TooltipProps } from 'antd';
 
-const ToolTip = ({ tooltipProps, children }: { tooltipProps: TooltipProps, children?: React.ReactNode }) => {
+const ToolTip = ({ children, ...props }: TooltipProps & { children?: React.ReactNode }) => {
   return (
-    <AntdTooltip {...tooltipProps}>{children}</AntdTooltip>
+    <AntdTooltip {...props}>{children}</AntdTooltip>
   );
 };
 

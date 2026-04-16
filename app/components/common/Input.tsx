@@ -1,23 +1,21 @@
 import React from 'react';
-import { Input as AntdInput } from 'antd';
+import { Input as AntdInput, InputProps as AntdInputProps } from 'antd';
+import { SearchProps, PasswordProps } from 'antd/es/input';
 
-interface InputProps {
-    inputProps: React.ComponentProps<typeof AntdInput>;
-    type: string;
+type InputProps = AntdInputProps & {
+    type?: string;
 }
 
 const { Search, Password } = AntdInput;
 
-
-const Input: React.FC<InputProps> = ({inputProps, type, ...rest}) => {
-    const combinedProps = { ...inputProps, ...rest };
+const Input: React.FC<InputProps & any> = ({ type, ...props }) => {
     switch (type) {
         case "search":
-            return <Search {...combinedProps} />;
+            return <Search {...(props as SearchProps)} />;
         case "password":
-            return <Password {...combinedProps} />;
+            return <Password {...(props as PasswordProps)} />;
         default:
-            return <AntdInput {...combinedProps} />;
+            return <AntdInput {...props} />;
     }
 };
 

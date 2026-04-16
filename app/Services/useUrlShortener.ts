@@ -1,8 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { shortenUrl, getUrlHistory, deleteUrl, getUrlAnalytics, UrlHistoryResponse } from "./urlService";
+import { shortenUrl, getUrlHistory, deleteUrl, getUrlAnalytics, getLinkPreview, pingServer, UrlHistoryResponse } from "./urlService";
 
 type url = {
-  original_url: string,
+  original_url: string;
+  expires_at?: string;
+  password?: string;
+  max_clicks?: number;
 }
 
 export const useUrlShortener = ({ mutationConfig }: { mutationConfig?: any } = {}) => {
@@ -17,6 +20,21 @@ export const useUrlShortener = ({ mutationConfig }: { mutationConfig?: any } = {
     },
     ...restConfig,
     mutationFn: (data: { data: url }) => shortenUrl(data.data),
+  });
+};
+
+export const useLinkPreview = ({ mutationConfig }: { mutationConfig?: any } = {}) => {
+  const { onSuccess, onError, ...restConfig } = mutationConfig || {};
+
+  return useMutation<any, Error, string>({
+    onSuccess: (...args) => {
+      onSuccess?.(...args);
+    },
+    onError: (...args) => {
+      onError?.(...args);
+    },
+    ...restConfig,
+    mutationFn: (url: string) => getLinkPreview(url),
   });
 };
 
@@ -56,5 +74,13 @@ export const useUrlAnalytics = ({ mutationConfig }: { mutationConfig?: any } = {
     },
     ...restConfig,
     mutationFn: getUrlAnalytics,
+  });
+};
+
+export const usePingServer = ({ queryConfig }: { queryConfig?: any } = {}) => {
+  return useQuery({
+    queryKey: ['pingServer'],
+    queryFn: pingServer,
+    ...queryConfig,
   });
 };
