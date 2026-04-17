@@ -14,6 +14,6 @@ export { default as Menu } from './Menu';
 export { default as Empty } from './Empty';
 export { default as Modal } from './Modal';
 export { default as Drawer } from './Drawer';
-export { default as AnalyticsModal } from './AnalyticsModal';
+export { default as AnalyticsModal, WorldMapChart } from './AnalyticsModal';
 export { ThemeProvider, useTheme } from './ThemeContext';
 export { default as ThemeToggle } from './ThemeToggle';
