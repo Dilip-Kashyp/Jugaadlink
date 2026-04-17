@@ -1,71 +1,144 @@
-# Jugaadlink
+# 🔗 JugaadLink — Shrink. Track. Dominate.
 
-A clever, high-performance URL management platform that streamlines your online experience. Jugaadlink transforms complex URLs into short, shareable links while providing deep analytics and a bold Neo-Brutalist aesthetic.
+> The modern link intelligence platform. Shorten URLs, track real-time analytics, protect links, and visualize global traffic — all in one premium dashboard.
 
-## Table of Contents
-* [About](#about)
-* [Key Features](#key-features)
-* [Tech Stack](#tech-stack)
-* [Getting Started](#getting-started)
-* [Environment Variables](#environment-variables)
-* [Scripts](#scripts)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
+![Ant Design](https://img.shields.io/badge/Ant_Design-6-0170FE?logo=antdesign)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## About
-Jugaadlink is built to handle URL management with speed and style. It utilizes Next.js 16 and React 19 to provide a seamless, performant user experience. The application focuses on clarity and utility, designed with a custom Neo-Brutalist theme that stands out from typical SaaS interfaces.
+---
 
-## Key Features
-* URL Shortening: Quickly transform long URLs into concise, manageable links.
-* Real-time Analytics: Track link performance with metrics for total clicks, active links, and average usage.
-* Data Visualization: Interactive charts for traffic forecasting and top-performing links using Recharts.
-* QR Code Generation: Built-in QR code support for every short link generated.
-* History Tracking: Comprehensive log of all generated links with source and target tracking.
-* Social Sharing: One-click sharing capabilities for shortened URLs.
-* Responsive Design: Fully optimized for desktop, tablet, and mobile devices.
-* Neo-Brutalist UI: A bold, high-contrast design system with full light/dark mode support.
+## ✨ Features
 
-## Tech Stack
-* **Framework:** Next.js 16 (App Router)
-* **Frontend Library:** React 19
-* **Language:** TypeScript
-* **Styling:** Custom Neo-Brutalist CSS, Ant Design, Tailwind CSS
-* **Data Fetching:** TanStack React Query
-* **Analytics & Charts:** Recharts
-* **Animations:** GSAP
-* **Icons:** Lucide React, Ant Design Icons
+| Feature | Description |
+|---------|-------------|
+| **⚡ Instant URL Shortening** | Paste a URL, get a clean short link in < 200ms |
+| **📊 Real-time Analytics** | Clicks, devices, browsers, OS, referrers — all in one view |
+| **🗺️ Geographic Heatmap** | Interactive world map showing click distribution by country |
+| **🔒 Password Protection** | Lock sensitive links behind a password with a dedicated unlock page |
+| **📱 QR Code Generation** | One-click QR code for any shortened link |
+| **🏷️ Tags & Categories** | Organize links with custom tags, categories, and notes |
+| **⏱️ Auto-Expiry** | Set time-based or click-based expiration on any link |
+| **⚙️ Link Activation** | Toggle links on/off — deactivated links show a friendly disabled page |
+| **🌗 Dark/Light Mode** | Full theme system with glassmorphic dark mode |
+| **🚀 Success Popup** | Instant copy + stats access after shortening — no page navigation needed |
+| **🔍 SEO Optimized** | Full Open Graph, Twitter Cards, robots.txt, and semantic HTML |
 
-## Getting Started
+---
+
+## 🏗️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Framework** | Next.js 16 (App Router) |
+| **UI Library** | React 19 |
+| **Language** | TypeScript 5 |
+| **Styling** | Custom CSS Design System + Ant Design 6 |
+| **Data Fetching** | TanStack React Query v5 |
+| **Charts** | Recharts |
+| **World Map** | react-simple-maps + world-atlas TopoJSON |
+| **Icons** | Lucide React |
+| **QR Codes** | qrcode.react |
+| **Backend** | Go + Gin + GORM + PostgreSQL + Redis |
+
+---
+
+## 📁 Project Structure
+
+```
+url-shortener-fe/
+├── app/
+│   ├── components/
+│   │   ├── common/          # Design system (Button, Card, Modal, Map...)
+│   │   ├── Dashboard/       # Main shortener + analytics dashboard
+│   │   ├── LandingPage/     # Public landing page
+│   │   └── Navbar/          # Top navigation
+│   ├── constants/           # All UI strings (centralized)
+│   ├── Services/            # API client, hooks, and service functions
+│   ├── types/               # TypeScript declarations
+│   ├── dashboard/           # /dashboard route
+│   ├── login/               # /login route
+│   ├── signup/              # /signup route
+│   ├── password/[code]/     # Password entry for protected links
+│   ├── link-disabled/       # Disabled/expired link page
+│   ├── layout.tsx           # Root layout with SEO metadata
+│   └── globals.css          # Design tokens & global styles
+├── public/
+│   └── robots.txt           # SEO crawler directives
+└── package.json
+```
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-* Node.js (Version 18.0 or higher)
-* npm, yarn, or pnpm
+- **Node.js** ≥ 18.0
+- **npm** / yarn / pnpm
+- Backend server running on `http://localhost:8080`
 
 ### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/url-shortener-fe.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd url-shortener-fe
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
 
-### Development
-Start the development server:
 ```bash
+# Clone
+git clone https://github.com/your-username/jugaadlink.git
+cd jugaadlink/url-shortener-fe
+
+# Install
+npm install
+
+# Start dev server
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-## Environment Variables
-Create a `.env` file in the root directory and configure the following variables if necessary:
-* `NEXT_PUBLIC_API_URL`: The base URL for the backend API.
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-## Scripts
-* `npm run dev`: Runs the application in development mode with Turbopack.
-* `npm run build`: Creates an optimized production build.
-* `npm run start`: Starts the application in production mode.
-* `npm run lint`: Checks the code for linting errors.
+### Environment Variables
+
+Create a `.env` file:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1
+```
+
+---
+
+## 📜 Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server with Turbopack |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | ESLint check |
+
+---
+
+## 🔍 SEO
+
+JugaadLink ships with production-grade SEO out of the box:
+
+- **Open Graph** tags for social sharing (Facebook, LinkedIn, WhatsApp)
+- **Twitter Cards** (large image summary)
+- **robots.txt** — allows public pages, blocks dashboard/API
+- **Canonical URLs**
+- **Structured metadata** via Next.js Metadata API
+- **Theme color** + Apple Web App meta
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/amazing`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing`)
+5. Open a Pull Request
+
+---
+
+## 📝 License
+
+MIT © JugaadLink Team

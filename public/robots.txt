@@ -1,2 +1,28 @@
+# JugaadLink — URL Shortener & Link Intelligence Platform
+# https://jugaadlink.com
+
 User-agent: *
 Allow: /
+Disallow: /dashboard
+Disallow: /password/*
+Disallow: /link-disabled
+Disallow: /api/*
+
+# Sitemaps
+Sitemap: https://jugaadlink.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Block AI bots from scraping user content
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
