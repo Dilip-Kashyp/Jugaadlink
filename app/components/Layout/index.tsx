@@ -1,20 +1,14 @@
 "use client";
 import React from 'react';
-import { Layout } from 'antd';
 import Navbar from './Navbar';
 
-const { Content } = Layout;
-
 export default function DefaultLayout({ children }: { children: React.ReactNode }) {
-
   return (
-    <Layout>
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <Navbar />
-      <Content style={{ marginBottom: 40 }}>
-        <div>
-          {children}
-        </div>
-      </Content>
-    </Layout>
+      <main className="pt-24">
+        {children}
+      </main>
+    </div>
   );
 };

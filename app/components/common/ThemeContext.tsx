@@ -37,8 +37,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         theme={{
           algorithm: theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
           token: {
-            colorPrimary: '#4F46E5',
-            borderRadius: 10,
+            colorPrimary: '#6366F1',
+            borderRadius: 12,
             fontFamily: "'Inter', sans-serif",
           },
         }}
