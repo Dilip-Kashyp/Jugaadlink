@@ -9,7 +9,6 @@ A clever, high-performance URL management platform that streamlines your online 
 * [Getting Started](#getting-started)
 * [Environment Variables](#environment-variables)
 * [Scripts](#scripts)
-* [License](#license)
 
 ## About
 Jugaadlink is built to handle URL management with speed and style. It utilizes Next.js 16 and React 19 to provide a seamless, performant user experience. The application focuses on clarity and utility, designed with a custom Neo-Brutalist theme that stands out from typical SaaS interfaces.
@@ -70,6 +69,3 @@ Create a `.env` file in the root directory and configure the following variables
 * `npm run build`: Creates an optimized production build.
 * `npm run start`: Starts the application in production mode.
 * `npm run lint`: Checks the code for linting errors.
-
-## License
-This project is licensed under the MIT License.
