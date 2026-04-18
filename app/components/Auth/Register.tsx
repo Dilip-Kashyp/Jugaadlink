@@ -4,7 +4,7 @@ import { Input, Button, Form, Notification, Flex } from '../common';
 import { useRegister } from '../../Services';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ALREADY_HAVE_AN_ACCOUNT, LOGIN, REGISTER, REGISTRATION_SUCCESSFUL, REGISTRATION_FAILED, LOGIN_URL } from '@/app/constants';
+import { ALREADY_HAVE_AN_ACCOUNT, LOGIN, REGISTER, REGISTRATION_SUCCESSFUL, REGISTRATION_FAILED, PAGE_ROUTES } from '@/app/constants';
 
 const Register: React.FC = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const Register: React.FC = () => {
     mutationConfig: {
       onSuccess: () => {
         Notification(REGISTRATION_SUCCESSFUL, 'success');
-        router.push(LOGIN_URL);
+        router.push(PAGE_ROUTES.LOGIN);
       },
       onError: (error: any) => {
         Notification(error.response?.data?.message || REGISTRATION_FAILED, 'error');

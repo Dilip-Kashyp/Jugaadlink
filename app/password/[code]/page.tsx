@@ -1,6 +1,6 @@
 "use client";
 import { useState, Suspense } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Lock, ArrowRight, AlertCircle } from "lucide-react";
 import { useVerifyPassword } from "../../Services/useUrlShortener";
 import { getresponseError } from "../../Services/apiClient";
@@ -8,6 +8,7 @@ import { getresponseError } from "../../Services/apiClient";
 function PasswordContent() {
   const params = useParams();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const code = params.code as string;
   const hasError = searchParams.get("error") === "invalid";
 
@@ -17,8 +18,8 @@ function PasswordContent() {
   const { mutate: verifyPassword, isPending } = useVerifyPassword({
     mutationConfig: {
       onSuccess: (data: { data: { redirect_url: string } }) => {
-        if (data?.data?.redirect_url) {
-          window.location.href = data.data.redirect_url;
+        if (data) {
+          router.push(data?.data?.redirect_url);
         }
       },
       onError: (err: any) => {

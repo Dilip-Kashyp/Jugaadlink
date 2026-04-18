@@ -28,6 +28,15 @@ export const publicApi = Axios.create({
 });
 
 api.interceptors.request.use(authRequestInterceptor);
+
+publicApi.interceptors.response.use(
+  (response) => {
+    return response?.data;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 api.interceptors.response.use(
   (response) => {
     const sessionToken = response.headers["x-session-token"];

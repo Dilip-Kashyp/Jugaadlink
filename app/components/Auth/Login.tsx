@@ -5,7 +5,7 @@ import { Input, Button, Form, Flex } from '../common';
 import { useLogin } from '../../Services';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { DASHBOARD_URL, DONT_HAVE_AN_ACCOUNT, LOGIN, LOGIN_FAILED, LOGIN_SUCCESSFUL } from '@/app/constants';
+import { PAGE_ROUTES, DONT_HAVE_AN_ACCOUNT, LOGIN, LOGIN_FAILED, LOGIN_SUCCESSFUL } from '@/app/constants';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     mutationConfig: {
       onSuccess: () => {
         message.success(LOGIN_SUCCESSFUL);
-        router.push(DASHBOARD_URL);
+        router.push(PAGE_ROUTES.DASHBOARD);
       },
       onError: (error: any) => {
         message.error(error.response?.data?.message || LOGIN_FAILED);

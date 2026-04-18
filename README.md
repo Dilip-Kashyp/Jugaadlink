@@ -1,144 +1,177 @@
-# 🔗 JugaadLink — Shrink. Track. Dominate.
+# JugaadLink Frontend
 
-> The modern link intelligence platform. Shorten URLs, track real-time analytics, protect links, and visualize global traffic — all in one premium dashboard.
+**URL shortener interface built with Next.js, React Query, and Ant Design.**
 
-![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
-![Ant Design](https://img.shields.io/badge/Ant_Design-6-0170FE?logo=antdesign)
-![License](https://img.shields.io/badge/License-MIT-green)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://typescriptlang.org)
+[![Ant Design](https://img.shields.io/badge/Ant_Design-6-0170FE?logo=antdesign&logoColor=white)](https://ant.design)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
----
+JugaadLink is a full-featured URL management dashboard. It lets users shorten links, set passwords and expiration rules, organize links by category, and view per-link and dashboard-wide analytics including a geographic heatmap.
 
-## ✨ Features
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Scripts](#scripts)
+- [Pages and Routes](#pages-and-routes)
+- [Architecture Notes](#architecture-notes)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
 
 | Feature | Description |
-|---------|-------------|
-| **⚡ Instant URL Shortening** | Paste a URL, get a clean short link in < 200ms |
-| **📊 Real-time Analytics** | Clicks, devices, browsers, OS, referrers — all in one view |
-| **🗺️ Geographic Heatmap** | Interactive world map showing click distribution by country |
-| **🔒 Password Protection** | Lock sensitive links behind a password with a dedicated unlock page |
-| **📱 QR Code Generation** | One-click QR code for any shortened link |
-| **🏷️ Tags & Categories** | Organize links with custom tags, categories, and notes |
-| **⏱️ Auto-Expiry** | Set time-based or click-based expiration on any link |
-| **⚙️ Link Activation** | Toggle links on/off — deactivated links show a friendly disabled page |
-| **🌗 Dark/Light Mode** | Full theme system with glassmorphic dark mode |
-| **🚀 Success Popup** | Instant copy + stats access after shortening — no page navigation needed |
-| **🔍 SEO Optimized** | Full Open Graph, Twitter Cards, robots.txt, and semantic HTML |
+| :--- | :--- |
+| URL Shortening | Paste any URL and receive a short link in under 200 ms |
+| Custom Alias | Choose your own short code (3 to 20 characters) |
+| Password Protection | Lock a link behind a password with a dedicated unlock page |
+| Link Expiry | Set a date-based or click-count-based limit per link |
+| Link Editing | Update password, expiry, max clicks, tags, category, and notes after creation |
+| Category Directory | History tab groups links by category into collapsible folder sections |
+| Link Toggle | Enable or disable any link; disabled links redirect to a friendly error page |
+| Real-time Analytics | Per-link and aggregate stats: clicks, devices, browsers, OS, referrers |
+| Geographic Heatmap | Interactive world map showing click distribution by country |
+| QR Code Generation | One-click QR code download for any link |
+| Tags and Notes | Attach tags, a category, and a comment note to every link |
+| Guest Mode | Full link creation without an account using session tokens |
+| Dark and Light Mode | CSS variable-based theme system with glassmorphic dark mode |
+| SEO Ready | Open Graph, Twitter Cards, canonical URLs, robots.txt, and structured metadata |
 
----
-
-## 🏗️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
-|-------|------------|
-| **Framework** | Next.js 16 (App Router) |
-| **UI Library** | React 19 |
-| **Language** | TypeScript 5 |
-| **Styling** | Custom CSS Design System + Ant Design 6 |
-| **Data Fetching** | TanStack React Query v5 |
-| **Charts** | Recharts |
-| **World Map** | react-simple-maps + world-atlas TopoJSON |
-| **Icons** | Lucide React |
-| **QR Codes** | qrcode.react |
-| **Backend** | Go + Gin + GORM + PostgreSQL + Redis |
+| :--- | :--- |
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript 5 |
+| UI Components | Ant Design 6 |
+| Styling | Custom CSS design system with CSS custom properties |
+| Data Fetching | TanStack React Query v5 |
+| HTTP Client | Axios |
+| Charts | Recharts |
+| World Map | react-simple-maps with world-atlas TopoJSON |
+| Icons | Lucide React |
+| QR Codes | qrcode.react |
+| Animations | GSAP |
+| Backend | Go, Gin, GORM, PostgreSQL, Redis |
 
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 url-shortener-fe/
 ├── app/
 │   ├── components/
-│   │   ├── common/          # Design system (Button, Card, Modal, Map...)
-│   │   ├── Dashboard/       # Main shortener + analytics dashboard
-│   │   ├── LandingPage/     # Public landing page
-│   │   └── Navbar/          # Top navigation
-│   ├── constants/           # All UI strings (centralized)
-│   ├── Services/            # API client, hooks, and service functions
-│   ├── types/               # TypeScript declarations
-│   ├── dashboard/           # /dashboard route
-│   ├── login/               # /login route
-│   ├── signup/              # /signup route
-│   ├── password/[code]/     # Password entry for protected links
-│   ├── link-disabled/       # Disabled/expired link page
-│   ├── layout.tsx           # Root layout with SEO metadata
-│   └── globals.css          # Design tokens & global styles
+│   │   ├── common/          # Shared design system: Button, Card, Modal, Input, Map
+│   │   ├── Auth/            # Login and Register forms
+│   │   ├── Dashboard/       # Shortener form, link list, analytics, edit modal
+│   │   ├── LandingPage/     # Public landing page sections
+│   │   └── Layout/          # Navbar and page layout wrappers
+│   ├── constants/           # Centralized UI strings, API endpoints, route paths
+│   ├── Services/            # Axios client, service functions, React Query hooks
+│   ├── types/               # Global TypeScript declarations
+│   ├── dashboard/           # /dashboard route page
+│   ├── login/               # /login route page
+│   ├── signup/              # /signup route page
+│   ├── password/[code]/     # Password entry page for protected links
+│   ├── link-disabled/       # Disabled or expired link error page
+│   ├── layout.tsx           # Root layout with metadata and providers
+│   └── globals.css          # Design tokens and global styles
+├── styles/                  # Additional global stylesheets
 ├── public/
-│   └── robots.txt           # SEO crawler directives
+│   └── robots.txt           # Crawler directives
+├── next.config.ts           # Next.js configuration
 └── package.json
 ```
 
----
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- **Node.js** ≥ 18.0
-- **npm** / yarn / pnpm
-- Backend server running on `http://localhost:8080`
+
+- Node.js 18 or higher
+- npm, yarn, or pnpm
+- The JugaadLink backend running (see [jugaadlink-be](../Url%20shortener-be/README.md))
 
 ### Installation
 
 ```bash
-# Clone
 git clone https://github.com/your-username/jugaadlink.git
 cd jugaadlink/url-shortener-fe
 
-# Install
 npm install
+```
 
-# Start dev server
+### Development Server
+
+```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the app.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Environment Variables
+The app expects the backend API at `http://localhost:8080` by default. Configure this via `.env` before starting.
 
-Create a `.env` file:
+## Environment Variables
+
+Create a `.env` file in the project root:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1
+# Base URL for authenticated API calls (includes /api/v1 prefix)
+NEXT_PUBLIC_BASE_URL=http://localhost:8080/api/v1
+
+# Base server URL for public API calls (redirect, verify-password)
+NEXT_PUBLIC_SERVER_URL=http://localhost:8080
 ```
 
----
+| Variable | Description |
+| :--- | :--- |
+| `NEXT_PUBLIC_BASE_URL` | Full base URL for all authenticated REST calls |
+| `NEXT_PUBLIC_SERVER_URL` | Root server URL used by public endpoints such as password verification |
 
-## 📜 Scripts
+## Scripts
 
 | Command | Description |
-|---------|-------------|
-| `npm run dev` | Development server with Turbopack |
-| `npm run build` | Production build |
-| `npm run start` | Start production server |
-| `npm run lint` | ESLint check |
+| :--- | :--- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Compile a production build |
+| `npm run start` | Serve the compiled production build |
+| `npm run lint` | Run ESLint across the project |
 
----
+## Pages and Routes
 
-## 🔍 SEO
+| Route | Description |
+| :--- | :--- |
+| `/` | Public landing page |
+| `/dashboard` | Main application: shortener form, link history, analytics |
+| `/login` | User login |
+| `/signup` | User registration |
+| `/password/[code]` | Password entry page for protected links |
+| `/link-disabled` | Shown when a link is deactivated, expired, or has reached its click limit |
 
-JugaadLink ships with production-grade SEO out of the box:
+## Architecture Notes
 
-- **Open Graph** tags for social sharing (Facebook, LinkedIn, WhatsApp)
-- **Twitter Cards** (large image summary)
-- **robots.txt** — allows public pages, blocks dashboard/API
-- **Canonical URLs**
-- **Structured metadata** via Next.js Metadata API
-- **Theme color** + Apple Web App meta
+**API Client**: Two Axios instances are used. `api` (in `Services/apiClient.ts`) handles all authenticated calls and automatically attaches the JWT or session token. `publicApi` handles unauthenticated calls such as password verification and redirects. Both instances have response interceptors that unwrap the `data` envelope returned by the backend.
 
----
+**React Query**: All server state is managed with TanStack React Query. Queries and mutations are defined in `Services/useUrlShortener.ts` and `Services/useAuth.ts`. Mutation hooks accept an optional `mutationConfig` object for per-call `onSuccess` and `onError` handlers.
 
-## 🤝 Contributing
+**Design System**: All UI tokens (colors, spacing, typography, shadows) are defined as CSS custom properties on `:root` in `globals.css`. Ant Design components are customized through a theme config at the provider level in `layout.tsx`.
 
-1. Fork the repo
-2. Create a feature branch (`git checkout -b feature/amazing`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing`)
-5. Open a Pull Request
+**Constants**: All hard-coded strings, API endpoint paths, route paths, and display labels live in `app/constants/`. Nothing is hard-coded in components.
 
----
+**Category Directory**: The history tab groups links by their `category` field using `useMemo`. Each group is rendered as a collapsible folder section. Links with no category appear in an Uncategorized group at the bottom.
 
-## 📝 License
+## Contributing
 
-MIT © JugaadLink Team
+Contributions are welcome. Please open an issue before submitting a pull request for any significant change.
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/your-feature`.
+3. Make your changes and ensure `npm run lint` passes.
+4. Push and open a pull request against `main`.
+
+## License
+
+MIT License. See [LICENSE](LICENSE) for full text.

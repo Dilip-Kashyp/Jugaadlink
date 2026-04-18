@@ -1,11 +1,14 @@
 export const DASHBOARD_CONSTANTS = {
   MESSAGES: {
-    LINK_MINIMIZED_SUCCESS: "✨ Link crafted successfully!",
-    LINK_MINIMIZED_ERROR: "Oops — couldn't generate your link.",
+    LINK_MINIMIZED_SUCCESS: "Link crafted successfully.",
+    LINK_MINIMIZED_ERROR: "Could not generate your link.",
     LINK_ERASED_SUCCESS: "Link permanently removed.",
     LINK_ERASED_ERROR: "Failed to remove link.",
-    LINK_COPIED_SUCCESS: "📋 Copied to clipboard!",
+    LINK_COPIED_SUCCESS: "Copied to clipboard.",
     LINK_COPIED_FALLBACK: "Link copied to clipboard.",
+    LINK_ACTIVATED: "Link activated.",
+    LINK_DEACTIVATED: "Link deactivated.",
+    TOGGLE_FAILED: "Failed to update link status.",
   },
   MENU: {
     OVERALL_LINKS: "Dashboard",
@@ -46,6 +49,7 @@ export const DASHBOARD_CONSTANTS = {
     TRAFFIC_FORECAST: "Clicks Over Time",
     TOP_PERFORMING: "Top Performers",
     LAST_7_DAYS: "Created This Week",
+    GEOGRAPHIC_REACH: "Geographic Reach",
   },
   HISTORY: {
     HEADING: "My Links",
@@ -60,12 +64,19 @@ export const DASHBOARD_CONSTANTS = {
     TOOLTIP_QR: "QR Code",
     TOOLTIP_SHARE: "Share",
     TOOLTIP_DELETE: "Delete",
+    TOOLTIP_ACTIVATE: "Activate",
+    TOOLTIP_DEACTIVATE: "Deactivate",
+    BADGE_PASSWORD: "Password Protected",
+    BADGE_TEMPORARY: "Temporary",
+    BADGE_LIMITED: "Click Limited",
   },
   SUCCESS_POPUP: {
-    TITLE: "Link Ready! 🚀",
+    TITLE: "Link Ready",
     SUBTITLE: "Your micro-link is live and trackable",
     COPY_BUTTON: "Copy Link",
     VIEW_STATS: "View Stats",
     DONE: "Done",
-  }
+    LABEL_SHORT: "Short Link",
+    LABEL_ORIGINAL: "Original",
+  },
 };

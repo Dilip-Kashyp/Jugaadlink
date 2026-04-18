@@ -1,8 +1,13 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { shortenUrl, getUrlHistory, deleteUrl, getUrlAnalytics, getLinkPreview, pingServer, toggleUrl, verifyPassword, UrlHistoryResponse, ShortenResult } from "./urlService";
+import {
+  shortenUrl, getUrlHistory, deleteUrl, getUrlAnalytics, getLinkPreview,
+  pingServer, toggleUrl, verifyPassword, updateUrl,
+  UrlHistoryResponse, ShortenResult, UpdateUrlPayload
+} from "./urlService";
 
 type url = {
   original_url: string;
+  custom_slug?: string;
   expires_at?: string;
   password?: string;
   max_clicks?: number;
@@ -118,3 +123,21 @@ export const useVerifyPassword = ({ mutationConfig }: { mutationConfig?: any } =
     mutationFn: verifyPassword,
   });
 };
+
+export const useUpdateUrl = ({ mutationConfig }: { mutationConfig?: any } = {}) => {
+  const { onSuccess, onError, ...restConfig } = mutationConfig || {};
+
+  return useMutation<any, Error, { shortCode: string; data: UpdateUrlPayload }>({
+    onSuccess: (...args) => {
+      onSuccess?.(...args);
+    },
+    onError: (...args) => {
+      onError?.(...args);
+    },
+    ...restConfig,
+    mutationFn: updateUrl,
+  });
+};
+
+// Re-export types that components consume
+export type { UrlItem, ShortenResult } from "./urlService";

@@ -7,6 +7,9 @@ export interface UrlItem {
   short_code: string;
   short_url: string;
   clicks: number;
+  max_clicks?: number;
+  has_password?: boolean;
+  expires_at?: string;
   created_at: string;
   tags?: string;
   category?: string;
@@ -37,8 +40,9 @@ export interface ShortenResult {
   };
 }
 
-export const shortenUrl = async (data: { 
+export const shortenUrl = async (data: {
   original_url: string;
+  custom_slug?: string;
   password?: string;
   max_clicks?: number;
   expires_at?: string;
@@ -92,17 +96,42 @@ export const getUrlAnalytics = async (shortCode: string) => {
 };
 
 export const pingServer = async () => {
-    try {
-      const response = await api.get(API_ENDPOINTS.PING);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  };
+  try {
+    const response = await api.get(API_ENDPOINTS.PING);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const toggleUrl = async (shortCode: string) => {
   try {
     const response = await api.patch(`${API_ENDPOINTS.DELETE}/${shortCode}/toggle`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export interface UpdateUrlPayload {
+  password?: string;
+  expires_at?: string | null;
+  max_clicks?: number;
+  tags?: string;
+  category?: string;
+  comment?: string;
+  is_active?: boolean;
+}
+
+export const updateUrl = async ({
+  shortCode,
+  data,
+}: {
+  shortCode: string;
+  data: UpdateUrlPayload;
+}) => {
+  try {
+    const response = await api.patch(`${API_ENDPOINTS.UPDATE}/${shortCode}`, data);
     return response;
   } catch (error) {
     throw error;
