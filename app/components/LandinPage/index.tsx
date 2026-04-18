@@ -43,7 +43,7 @@ export default function LandinPage() {
   return (
     <div className="w-full max-w-6xl mx-auto px-6 pb-20">
       {/* Hero */}
-      <div className="text-center py-16 md:py-24">
+      <div className="text-center py-10 md:py-12">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--primary-subtle)] text-[var(--primary)] text-xs font-bold uppercase tracking-wider mb-6">
           <Zap size={14} /> {LANDING_PAGE_CONSTANTS.HERO.BADGE}
         </div>

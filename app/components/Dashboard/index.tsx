@@ -275,7 +275,7 @@ function LinkCard({ record, onToggle, onEdit, onAnalytics, onCopy, onQrCode, onS
             <Globe size={12} className="flex-shrink-0" />
             <span className="text-sm truncate">{record.original_url}</span>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-10">
             {record.tags && record.tags.split(',').map((tag, i) => (
               <span key={i} className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[11px] font-semibold">
                 <Tag size={10} /> {tag.trim()}
@@ -396,7 +396,7 @@ function CategoryGroup({ name, links, ...handlers }: CategoryGroupProps) {
       </button>
 
       {!collapsed && (
-        <div className="flex flex-col gap-2 pl-2">
+        <div className="flex flex-col gap-3 pl-2 mt-3">
           {links.map((record) => (
             <LinkCard key={record.id} record={record} {...handlers} />
           ))}

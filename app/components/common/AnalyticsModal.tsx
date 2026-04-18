@@ -147,7 +147,7 @@ export default function AnalyticsModal({
       centered
       width={1000}
       className="premium-modal"
-      rootClassName="[&_.ant-modal-content]:!p-0 [&_.ant-modal-content]:!bg-[var(--background)] [&_.ant-modal-close]:!hidden overflow-hidden"
+      rootClassName="[&_.ant-modal-content]:!p-0 [&_.ant-modal-content]:!bg-[var(--background)] [&_.ant-modal-content]:!rounded-2xl [&_.ant-modal-content]:!overflow-hidden [&_.ant-modal-content]:!border-0 [&_.ant-modal-close]:!hidden"
     >
       <Flex vertical>
         {/* Header */}

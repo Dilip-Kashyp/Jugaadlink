@@ -5,6 +5,7 @@ import { useRegister } from '../../Services';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ALREADY_HAVE_AN_ACCOUNT, LOGIN, REGISTER, REGISTRATION_SUCCESSFUL, REGISTRATION_FAILED, PAGE_ROUTES } from '@/app/constants';
+import OAuthButtons from './OAuthButtons';
 
 const Register: React.FC = () => {
   const router = useRouter();
@@ -70,6 +71,7 @@ const Register: React.FC = () => {
 
         <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl p-8 shadow-lg">
           <Form onFinish={onFinish} layout="vertical" items={formItem} className="w-full" />
+          <OAuthButtons mode="signup" />
         </div>
 
         <p className="text-center mt-6 text-sm text-[var(--foreground-muted)]">

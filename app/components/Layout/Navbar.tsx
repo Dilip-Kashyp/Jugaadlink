@@ -8,7 +8,6 @@ import { useCurrentUser, useLogout } from "@/app/Services";
 export default function Navbar() {
   const { data: user, isLoading } = useCurrentUser();
   const logout = useLogout();
-
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-3">
       <Flex
@@ -31,7 +30,7 @@ export default function Navbar() {
           ) : user ? (
             <Flex gap={12} align="center">
               <span className="text-sm font-semibold text-[var(--foreground-muted)] hidden md:block">
-                Hi, <span className="text-[var(--primary)] font-bold">{user?.data?.[0]?.name?.split(' ')[0] || "User"}</span>
+                Hi, <span className="text-[var(--primary)] font-bold">{user?.data?.name?.split(' ')[0] || "User"}</span>
               </span>
               <Button
                 type="text"

@@ -19,6 +19,8 @@ export const API_ENDPOINTS = {
     PREVIEW: "/url/preview",
     VERIFY_PASSWORD: "/verify-password",
     UPDATE: "/url",
+    OAUTH_GOOGLE: "/user/oauth/google",
+    OAUTH_GITHUB: "/user/oauth/github",
 }
 
 export const PAGE_ROUTES = {
@@ -28,6 +30,7 @@ export const PAGE_ROUTES = {
     DASHBOARD: "/dashboard",
     PASSWORD: "/password",
     LINK_DISABLED: "/link-disabled",
+    OAUTH_CALLBACK: "/oauth/callback",
 }
 
 export const PIE_COLORS = ['var(--primary)', 'var(--success)', 'var(--chart-line)', 'var(--hover-primary)'];

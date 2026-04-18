@@ -6,6 +6,7 @@ import { useLogin } from '../../Services';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { PAGE_ROUTES, DONT_HAVE_AN_ACCOUNT, LOGIN, LOGIN_FAILED, LOGIN_SUCCESSFUL } from '@/app/constants';
+import OAuthButtons from './OAuthButtons';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -62,6 +63,7 @@ const Login: React.FC = () => {
 
         <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl p-8 shadow-lg">
           <Form onFinish={onFinish} layout="vertical" items={formItem} className="w-full" />
+          <OAuthButtons mode="login" />
         </div>
 
         <p className="text-center mt-6 text-sm text-[var(--foreground-muted)]">
