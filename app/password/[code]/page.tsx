@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { Lock, ArrowRight, AlertCircle } from "lucide-react";
-import { Suspense } from "react";
+import { useVerifyPassword } from "../../Services/useUrlShortener";
+import { getresponseError } from "../../Services/apiClient";
 
 function PasswordContent() {
   const params = useParams();
@@ -11,33 +12,26 @@ function PasswordContent() {
   const hasError = searchParams.get("error") === "invalid";
 
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(hasError ? "Incorrect password. Please try again." : "");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const { mutate: verifyPassword, isPending } = useVerifyPassword({
+    mutationConfig: {
+      onSuccess: (data: { data: { redirect_url: string } }) => {
+        if (data?.data?.redirect_url) {
+          window.location.href = data.data.redirect_url;
+        }
+      },
+      onError: (err: any) => {
+        const { message } = getresponseError(err);
+        setError(message || "Incorrect password");
+      },
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
-
-    try {
-      const res = await fetch(`http://localhost:8080/verify-password/${code}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data?.data?.redirect_url) {
-        window.location.href = data.data.redirect_url;
-      } else {
-        setError(data?.message || "Incorrect password");
-        setLoading(false);
-      }
-    } catch {
-      setError("Something went wrong. Please try again.");
-      setLoading(false);
-    }
+    verifyPassword({ code, password });
   };
 
   return (
@@ -76,10 +70,10 @@ function PasswordContent() {
 
           <button
             type="submit"
-            disabled={loading || !password}
+            disabled={isPending || !password}
             className="w-full flex items-center justify-center gap-2 bg-[var(--primary)] text-white font-bold text-base px-6 py-3.5 rounded-xl transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? (
+            {isPending ? (
               <span className="animate-pulse">Verifying...</span>
             ) : (
               <>Unlock Link <ArrowRight size={18} /></>

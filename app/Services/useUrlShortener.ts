@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { shortenUrl, getUrlHistory, deleteUrl, getUrlAnalytics, getLinkPreview, pingServer, toggleUrl, UrlHistoryResponse, ShortenResult } from "./urlService";
+import { shortenUrl, getUrlHistory, deleteUrl, getUrlAnalytics, getLinkPreview, pingServer, toggleUrl, verifyPassword, UrlHistoryResponse, ShortenResult } from "./urlService";
 
 type url = {
   original_url: string;
@@ -101,5 +101,20 @@ export const useToggleUrl = ({ mutationConfig }: { mutationConfig?: any } = {}) 
     },
     ...restConfig,
     mutationFn: toggleUrl,
+  });
+};
+
+export const useVerifyPassword = ({ mutationConfig }: { mutationConfig?: any } = {}) => {
+  const { onSuccess, onError, ...restConfig } = mutationConfig || {};
+
+  return useMutation<{ data: { redirect_url: string } }, Error, { code: string; password: string }>({
+    onSuccess: (...args) => {
+      onSuccess?.(...args);
+    },
+    onError: (...args) => {
+      onError?.(...args);
+    },
+    ...restConfig,
+    mutationFn: verifyPassword,
   });
 };

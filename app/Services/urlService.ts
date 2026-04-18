@@ -1,4 +1,4 @@
-import { api } from "./apiClient";
+import { api, publicApi } from "./apiClient";
 import { API_ENDPOINTS } from "../constants";
 
 export interface UrlItem {
@@ -104,6 +104,21 @@ export const toggleUrl = async (shortCode: string) => {
   try {
     const response = await api.patch(`${API_ENDPOINTS.DELETE}/${shortCode}/toggle`);
     return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const verifyPassword = async ({
+  code,
+  password,
+}: {
+  code: string;
+  password: string;
+}): Promise<{ data: { redirect_url: string } }> => {
+  try {
+    const response = await publicApi.post(`${API_ENDPOINTS.VERIFY_PASSWORD}/${code}`, { password });
+    return response as unknown as { data: { redirect_url: string } };
   } catch (error) {
     throw error;
   }

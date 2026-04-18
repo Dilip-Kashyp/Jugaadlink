@@ -16,6 +16,7 @@ export const API_ENDPOINTS = {
     DELETE: "/url",
     ANALYTICS: "/url/analytics",
     PREVIEW: "/url/preview",
+    VERIFY_PASSWORD: "/verify-password",
 }
 
 export const LOGIN_URL = "/login";

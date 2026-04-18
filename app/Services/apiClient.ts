@@ -22,6 +22,11 @@ export const api = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
+// Public API instance for routes that sit outside /api/v1 (e.g. verify-password, redirect)
+export const publicApi = Axios.create({
+  baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
+});
+
 api.interceptors.request.use(authRequestInterceptor);
 api.interceptors.response.use(
   (response) => {
