@@ -19,7 +19,7 @@ function authRequestInterceptor(config: any) {
 }
 
 export const api = Axios.create({
-  baseURL: "http://localhost:8080/api/v1",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 api.interceptors.request.use(authRequestInterceptor);
