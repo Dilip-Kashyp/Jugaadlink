@@ -20,13 +20,14 @@ JugaadLink is a full-featured URL management dashboard. It lets users shorten li
 | :---: | :---: |
 | ![Analytics Overview](public/screenshots/analytics_overview.png) | ![Analytics Details](public/screenshots/analytics_details.png) |
 
-| Login Page |
-| :---: |
-| ![Login Page](public/screenshots/login.png) |
+| Login Page | Chrome Extension |
+| :---: | :---: |
+| ![Login Page](public/screenshots/login.png) | ![Chrome Extension](public/screenshots/final_image.png) |
 
 ## Table of Contents
 
 - [Features](#features)
+- [Chrome Extension](#chrome-extension)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
@@ -54,6 +55,18 @@ JugaadLink is a full-featured URL management dashboard. It lets users shorten li
 | Guest Mode | Full link creation without an account using session tokens |
 | Dark and Light Mode | CSS variable-based theme system with glassmorphic dark mode |
 | SEO Ready | Open Graph, Twitter Cards, canonical URLs, robots.txt, and structured metadata |
+| Chrome Extension | Official browser extension for instant shortening and session sync |
+
+## Chrome Extension
+
+JugaadLink includes an official Chrome extension that allows you to shorten URLs directly from your browser's active tab. It features:
+
+- Instant URL capture
+- Advanced features (custom slug, password, click limits) for authenticated users
+- Real-time synchronization with your web dashboard session
+- Quick access to recent history
+
+For setup instructions and a visual tour, see the [Chrome Extension README](../judaadlink-extension/README.md).
 
 ## Tech Stack
 
