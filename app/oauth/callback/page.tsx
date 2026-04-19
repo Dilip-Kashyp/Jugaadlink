@@ -4,15 +4,6 @@ import { useRouter } from "next/navigation";
 import { setItem } from "@/app/Services/cookieStorage";
 import { LOCAL_STORAGE_KEY, PAGE_ROUTES } from "@/app/constants";
 
-/**
- * /oauth/callback
- *
- * The backend redirects here after a successful Google/GitHub OAuth flow:
- *   http://localhost:3000/oauth/callback?token=<JWT>
- *
- * Stores the token exactly like the normal login flow, then navigates
- * to the dashboard.
- */
 export default function OAuthCallbackPage() {
   const router = useRouter();
 
