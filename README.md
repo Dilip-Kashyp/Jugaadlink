@@ -186,6 +186,3 @@ Contributions are welcome. Please open an issue before submitting a pull request
 3. Make your changes and ensure `npm run lint` passes.
 4. Push and open a pull request against `main`.
 
-## License
-
-MIT License. See [LICENSE](LICENSE) for full text.
