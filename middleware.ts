@@ -25,9 +25,9 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    PAGE_ROUTES.LOGIN,
-    PAGE_ROUTES.SIGNUP,
-    `${PAGE_ROUTES.DASHBOARD}/:path*`,
+    "/login",
+    "/signup",
+    "/dashboard/:path*",
   ],
 }
 
