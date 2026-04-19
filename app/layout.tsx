@@ -7,7 +7,7 @@ import { ThemeProvider } from "./components/common/ThemeContext";
 
 export const metadata: Metadata = {
   title: {
-    default: "JugaadLink — Shrink. Track. Dominate.",
+    default: "JugaadLink",
     template: "%s | JugaadLink",
   },
   description:
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://jugaadlink.com",
     siteName: "JugaadLink",
-    title: "JugaadLink — Shrink. Track. Dominate.",
+    title: "JugaadLink",
     description:
       "The modern link management platform. Shorten URLs, track analytics, protect links, and visualize global traffic — all in one place.",
     images: [
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "JugaadLink — The Modern Link Intelligence Platform",
+        alt: "JugaadLink",
       },
     ],
   },

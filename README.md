@@ -10,6 +10,20 @@
 
 JugaadLink is a full-featured URL management dashboard. It lets users shorten links, set passwords and expiration rules, organize links by category, and view per-link and dashboard-wide analytics including a geographic heatmap.
 
+## 📸 Preview
+
+| Landing Page | Dashboard (My Links) |
+| :---: | :---: |
+| ![Landing Page](public/screenshots/landing.png) | ![Dashboard](public/screenshots/dashboard.png) |
+
+| Analytics Overview | Link Analytics (Details) |
+| :---: | :---: |
+| ![Analytics Overview](public/screenshots/analytics_overview.png) | ![Analytics Details](public/screenshots/analytics_details.png) |
+
+| Login Page |
+| :---: |
+| ![Login Page](public/screenshots/login.png) |
+
 ## Table of Contents
 
 - [Features](#features)

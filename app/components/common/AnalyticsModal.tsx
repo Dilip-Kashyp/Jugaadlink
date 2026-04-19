@@ -147,7 +147,9 @@ export default function AnalyticsModal({
       centered
       width="min(1000px, 95vw)"
       className="premium-modal custom-modal"
-      rootClassName="[&_.ant-modal-content]:!p-0 [&_.ant-modal-content]:!bg-[var(--background)] [&_.ant-modal-content]:!rounded-2xl [&_.ant-modal-content]:!overflow-hidden [&_.ant-modal-content]:!border-0 [&_.ant-modal-close]:!hidden"
+      classNames={{ body: "!p-0" }}
+      styles={{ body: { padding: 0 } }}
+      rootClassName="[&_.ant-modal-content]:!bg-[var(--background)] [&_.ant-modal-content]:!rounded-2xl [&_.ant-modal-content]:!overflow-hidden [&_.ant-modal-close]:!hidden"
     >
       <Flex vertical>
         <Flex justify="space-between" align="center" className="p-4 sm:p-8 border-b border-[var(--border-default)] bg-[var(--background-subtle)] flex-wrap gap-3">
