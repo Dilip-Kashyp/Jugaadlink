@@ -69,7 +69,7 @@ const Register: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl p-8 shadow-lg">
+        <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl p-5 m-3 shadow-lg">
           <Form onFinish={onFinish} layout="vertical" items={formItem} className="w-full" />
           <OAuthButtons mode="signup" />
         </div>

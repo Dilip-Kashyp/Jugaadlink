@@ -25,7 +25,7 @@ export const LANDING_PAGE_CONSTANTS = {
     ROLE: "Growth Lead at Linear",
   },
   FOOTER: {
-    COPYRIGHT: "© 2026 JUGAADLINK CLOUD INC.",
+    COPYRIGHT: "© 2026 JUGAADLINK.",
     LINKS: ["Privacy", "Infrastructure", "Status"],
   }
 };

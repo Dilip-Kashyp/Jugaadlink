@@ -1,13 +1,17 @@
 "use client";
 import Link from "next/link";
-import { LogIn, LogOut } from "lucide-react";
-import { Button, Flex, Typography, ThemeToggle } from "../common";
-import { LOGIN } from "@/app/constants";
+import { LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { Button, Flex, ThemeToggle } from "../common";
+import { LOGIN, PAGE_ROUTES } from "@/app/constants";
 import { useCurrentUser, useLogout } from "@/app/Services";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { data: user, isLoading } = useCurrentUser();
   const logout = useLogout();
+
+  const pathname = usePathname();
+
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-3">
       <Flex
@@ -32,6 +36,15 @@ export default function Navbar() {
               <span className="text-sm font-semibold text-[var(--foreground-muted)] hidden md:block">
                 Hi, <span className="text-[var(--primary)] font-bold">{user?.data?.name?.split(' ')[0] || "User"}</span>
               </span>
+              {pathname !== PAGE_ROUTES.DASHBOARD && <Link href={PAGE_ROUTES.DASHBOARD}>
+                <Button
+                  type="default"
+                  icon={<LayoutDashboard size={16} />}
+                  className="!flex !items-center !gap-2 !bg-[var(--primary-subtle)] !text-[var(--primary)] hover:!bg-[var(--primary)] hover:!text-white !rounded-xl !px-4 !h-9 !text-sm !font-semibold transition-all !py-0 !border-0"
+                >
+                  <span className="hidden sm:inline">Dashboard</span>
+                </Button>
+              </Link>}
               <Button
                 type="text"
                 icon={<LogOut size={16} />}

@@ -262,88 +262,94 @@ interface LinkCardProps {
 
 function LinkCard({ record, onToggle, onEdit, onAnalytics, onCopy, onQrCode, onShare, onDelete }: LinkCardProps) {
   return (
-    <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-xl p-5 group hover:border-[var(--primary)] hover:shadow-md transition-all">
-      <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-        <div className="flex-grow min-w-0">
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className={`w-2 h-2 rounded-full flex-shrink-0 ${record.is_active !== false ? 'bg-emerald-500' : 'bg-red-400'}`} />
-            <a href={record.short_url} target="_blank" rel="noreferrer" className="text-lg font-bold text-[var(--primary)] hover:underline truncate">
-              {record.short_url.replace(/^https?:\/\//, '')}
-            </a>
-          </div>
-          <div className="flex items-center gap-1.5 text-[var(--foreground-subtle)] mb-2">
-            <Globe size={12} className="flex-shrink-0" />
-            <span className="text-sm truncate">{record.original_url}</span>
-          </div>
-          <div className="flex flex-wrap items-center gap-10">
-            {record.tags && record.tags.split(',').map((tag, i) => (
-              <span key={i} className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[11px] font-semibold">
-                <Tag size={10} /> {tag.trim()}
-              </span>
-            ))}
-            {record.category && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[11px] font-semibold">
-                <Folder size={10} /> {record.category}
-              </span>
-            )}
-            {record.comment && (
-              <ToolTip title={record.comment}>
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-[var(--foreground-muted)] text-[11px] font-medium cursor-help">
-                  <MessageSquare size={10} /> Note
-                </span>
-              </ToolTip>
-            )}
-            {record.has_password && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400 text-[11px] font-semibold border border-violet-200 dark:border-violet-500/20">
-                <Lock size={10} /> {DASHBOARD_CONSTANTS.HISTORY.BADGE_PASSWORD}
-              </span>
-            )}
-            {(record.expires_at || (record.max_clicks && record.max_clicks > 0)) && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 text-[11px] font-semibold border border-rose-200 dark:border-rose-500/20">
-                <Clock size={10} /> {record.max_clicks && record.max_clicks > 0 ? DASHBOARD_CONSTANTS.HISTORY.BADGE_LIMITED : DASHBOARD_CONSTANTS.HISTORY.BADGE_TEMPORARY}
-              </span>
-            )}
-          </div>
+    <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-xl p-4 sm:p-5 group hover:border-[var(--primary)] hover:shadow-md transition-all">
+      <div className="flex flex-col gap-3">
+        {/* Top row: status dot + short URL */}
+        <div className="flex items-center gap-2">
+          <span className={`w-2 h-2 rounded-full flex-shrink-0 ${record.is_active !== false ? 'bg-emerald-500' : 'bg-red-400'}`} />
+          <a href={record.short_url} target="_blank" rel="noreferrer" className="text-base sm:text-lg font-bold text-[var(--primary)] hover:underline truncate">
+            {record.short_url.replace(/^https?:\/\//, '')}
+          </a>
         </div>
 
-        <div className="flex items-center gap-6 flex-shrink-0">
-          <div className="text-center">
-            <div className="text-xs font-semibold text-[var(--foreground-muted)] uppercase mb-0.5">Clicks</div>
-            <div className="text-xl font-black">{record.clicks}</div>
-          </div>
-          <div className="text-center">
-            <div className="text-xs font-semibold text-[var(--foreground-muted)] uppercase mb-0.5">Created</div>
-            <div className="text-sm font-bold text-[var(--foreground-muted)]">
-              {new Date(record.created_at).toLocaleDateString(undefined, { month: 'short', day: '2-digit' })}
+        {/* Original URL */}
+        <div className="flex items-center gap-1.5 text-[var(--foreground-subtle)]">
+          <Globe size={12} className="flex-shrink-0" />
+          <span className="text-sm truncate">{record.original_url}</span>
+        </div>
+
+        {/* Tags / badges */}
+        <div className="flex flex-wrap items-center gap-1.5">
+          {record.tags && record.tags.split(',').map((tag, i) => (
+            <span key={i} className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[11px] font-semibold">
+              <Tag size={10} /> {tag.trim()}
+            </span>
+          ))}
+          {record.category && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[11px] font-semibold">
+              <Folder size={10} /> {record.category}
+            </span>
+          )}
+          {record.comment && (
+            <ToolTip title={record.comment}>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-[var(--foreground-muted)] text-[11px] font-medium cursor-help">
+                <MessageSquare size={10} /> Note
+              </span>
+            </ToolTip>
+          )}
+          {record.has_password && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400 text-[11px] font-semibold border border-violet-200 dark:border-violet-500/20">
+              <Lock size={10} /> {DASHBOARD_CONSTANTS.HISTORY.BADGE_PASSWORD}
+            </span>
+          )}
+          {(record.expires_at || (record.max_clicks && record.max_clicks > 0)) && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 text-[11px] font-semibold border border-rose-200 dark:border-rose-500/20">
+              <Clock size={10} /> {record.max_clicks && record.max_clicks > 0 ? DASHBOARD_CONSTANTS.HISTORY.BADGE_LIMITED : DASHBOARD_CONSTANTS.HISTORY.BADGE_TEMPORARY}
+            </span>
+          )}
+        </div>
+
+        {/* Bottom row: stats + actions */}
+        <div className="flex items-center justify-between gap-2 pt-1 border-t border-[var(--border-muted)]">
+          <div className="flex items-center gap-4">
+            <div className="text-center">
+              <div className="text-[10px] font-semibold text-[var(--foreground-muted)] uppercase mb-0.5">Clicks</div>
+              <div className="text-lg font-black">{record.clicks}</div>
+            </div>
+            <div className="text-center hidden xs:block">
+              <div className="text-[10px] font-semibold text-[var(--foreground-muted)] uppercase mb-0.5">Created</div>
+              <div className="text-sm font-bold text-[var(--foreground-muted)]">
+                {new Date(record.created_at).toLocaleDateString(undefined, { month: 'short', day: '2-digit' })}
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5 flex-wrap justify-end">
             <ToolTip title={record.is_active !== false ? DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_DEACTIVATE : DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_ACTIVATE}>
               <Button
                 onClick={() => onToggle(record.short_code)}
-                icon={<Power size={16} />}
+                icon={<Power size={15} />}
                 type="text" shape="circle"
-                className={`!flex !items-center !justify-center !w-9 !h-9 hover:!bg-[var(--background-muted)] !p-0 ${record.is_active !== false ? '!text-emerald-500' : '!text-red-400'}`}
+                className={`!flex !items-center !justify-center !w-8 !h-8 hover:!bg-[var(--background-muted)] !p-0 ${record.is_active !== false ? '!text-emerald-500' : '!text-red-400'}`}
               />
             </ToolTip>
             <ToolTip title="Edit link">
               <Button
                 onClick={() => onEdit(record)}
-                icon={<Pencil size={16} />}
+                icon={<Pencil size={15} />}
                 type="text" shape="circle"
-                className="!flex !items-center !justify-center !w-9 !h-9 hover:!bg-[var(--background-muted)] !text-[var(--foreground-muted)] !p-0"
+                className="!flex !items-center !justify-center !w-8 !h-8 hover:!bg-[var(--background-muted)] !text-[var(--foreground-muted)] !p-0"
               />
             </ToolTip>
             {[
-              { tip: DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_ANALYTICS, ico: <BarChartIcon size={16} />, fn: () => onAnalytics(record), danger: false },
-              { tip: DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_COPY, ico: <Copy size={16} />, fn: () => onCopy(record.short_url), danger: false },
-              { tip: DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_QR, ico: <QrCode size={16} />, fn: () => onQrCode(record.short_url), danger: false },
-              { tip: DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_DELETE, ico: <Trash2 size={16} />, fn: () => onDelete(record.short_code), danger: true },
+              { tip: DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_ANALYTICS, ico: <BarChartIcon size={15} />, fn: () => onAnalytics(record), danger: false },
+              { tip: DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_COPY, ico: <Copy size={15} />, fn: () => onCopy(record.short_url), danger: false },
+              { tip: DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_QR, ico: <QrCode size={15} />, fn: () => onQrCode(record.short_url), danger: false },
+              { tip: DASHBOARD_CONSTANTS.HISTORY.TOOLTIP_DELETE, ico: <Trash2 size={15} />, fn: () => onDelete(record.short_code), danger: true },
             ].map((action, idx) => (
               <ToolTip key={idx} title={action.tip}>
                 <Button onClick={action.fn} icon={action.ico} type="text" shape="circle" danger={action.danger}
-                  className="!flex !items-center !justify-center !w-9 !h-9 hover:!bg-[var(--background-muted)] !text-[var(--foreground-muted)] !p-0"
+                  className="!flex !items-center !justify-center !w-8 !h-8 hover:!bg-[var(--background-muted)] !text-[var(--foreground-muted)] !p-0"
                 />
               </ToolTip>
             ))}
@@ -624,7 +630,7 @@ export default function Dashboard() {
 
       {/* Success Popup */}
       {successData && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-premium">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-premium m-3">
           <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative">
             <button onClick={() => setSuccessData(null)} className="absolute top-4 right-4 text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors">
               <X size={20} />
@@ -688,19 +694,19 @@ export default function Dashboard() {
       )}
 
       {/* Floating Tab Bar */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-        <div className="glass rounded-full px-2 py-2 shadow-xl flex items-center gap-1">
+      <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50">
+        <div className="glass rounded-full px-1.5 sm:px-2 py-1.5 sm:py-2 shadow-xl flex items-center gap-0.5 sm:gap-1">
           <button
             onClick={() => setActiveTab('overall')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeTab === 'overall' ? 'bg-[var(--primary)] text-white shadow-md' : 'text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-muted)]'}`}
+            className={`flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all ${activeTab === 'overall' ? 'bg-[var(--primary)] text-white shadow-md' : 'text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-muted)]'}`}
           >
-            <LayoutDashboard size={16} /> {DASHBOARD_CONSTANTS.MENU.OVERALL_LINKS}
+            <LayoutDashboard size={16} /> <span className="hidden xs:inline">{DASHBOARD_CONSTANTS.MENU.OVERALL_LINKS}</span>
           </button>
           <button
             onClick={() => setActiveTab('history')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeTab === 'history' ? 'bg-[var(--primary)] text-white shadow-md' : 'text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-muted)]'}`}
+            className={`flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all ${activeTab === 'history' ? 'bg-[var(--primary)] text-white shadow-md' : 'text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-muted)]'}`}
           >
-            <List size={16} /> {DASHBOARD_CONSTANTS.MENU.HISTORY_LOG}
+            <List size={16} /> <span className="hidden xs:inline">{DASHBOARD_CONSTANTS.MENU.HISTORY_LOG}</span>
           </button>
         </div>
       </div>
@@ -720,35 +726,35 @@ export default function Dashboard() {
       </Modal>
 
       {/* Content */}
-      <div className="max-w-5xl mx-auto px-6 pb-32">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-32">
 
         {activeTab === 'overall' && (
           <div className="animate-premium">
             {/* Hero */}
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-6xl font-black font-heading tracking-tight mb-4 text-[var(--foreground)] leading-[1.1]">
+            <div className="text-center mb-8 sm:mb-12">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-black font-heading tracking-tight mb-4 text-[var(--foreground)] leading-[1.1]">
                 {DASHBOARD_CONSTANTS.HERO.HEADING_LINE_1}{' '}
                 <span className="text-[var(--primary)]">{DASHBOARD_CONSTANTS.HERO.HEADING_LINE_2}</span>
               </h1>
-              <p className="text-[var(--foreground-muted)] text-lg max-w-xl mx-auto">{DASHBOARD_CONSTANTS.HERO.SUBTEXT}</p>
+              <p className="text-[var(--foreground-muted)] text-base sm:text-lg max-w-xl mx-auto">{DASHBOARD_CONSTANTS.HERO.SUBTEXT}</p>
             </div>
 
             {/* URL Form */}
-            <Card className="!p-6 md:!p-8 !rounded-2xl !border-[var(--border-default)] !bg-[var(--background-subtle)] shadow-lg mb-16">
-              <form onSubmit={handleShortenUrl} className="flex flex-col gap-5">
-                <div className="relative">
+            <Card className="!p-4 sm:!p-6 md:!p-8 !rounded-2xl !border-[var(--border-default)] !bg-[var(--background-subtle)] shadow-lg mb-10 sm:mb-16">
+              <form onSubmit={handleShortenUrl} className="flex flex-col gap-4 sm:gap-5">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="text"
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
                     placeholder={DASHBOARD_CONSTANTS.FORM.PLACEHOLDER}
                     required
-                    className="w-full bg-[var(--background)] border border-[var(--border-default)] text-lg font-medium pl-5 pr-36 py-4 rounded-xl outline-none transition-all placeholder:text-[var(--foreground-placeholder)] text-[var(--foreground)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-subtle)]"
+                    className="flex-1 w-full bg-[var(--background)] border border-[var(--border-default)] text-base sm:text-lg font-medium px-4 sm:pl-5 py-3 sm:py-4 rounded-xl outline-none transition-all placeholder:text-[var(--foreground-placeholder)] text-[var(--foreground)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-subtle)]"
                   />
                   <Button
                     htmlType="submit"
                     loading={shortenerHandler.isPending}
-                    className="!absolute !right-2 !top-2 !bottom-2 !h-auto !px-7 !rounded-lg !bg-[var(--primary)] !text-white !font-bold !text-base hover:!bg-[var(--hover-primary)] !transition-all !shadow-md !py-0"
+                    className="!w-full sm:!w-auto !px-6 sm:!px-7 !h-12 sm:!h-auto !rounded-xl !bg-[var(--primary)] !text-white !font-bold !text-base hover:!bg-[var(--hover-primary)] !transition-all !shadow-md !py-0"
                   >
                     {DASHBOARD_CONSTANTS.FORM.BUTTON_DEFAULT}
                   </Button>
@@ -869,26 +875,26 @@ export default function Dashboard() {
                   <h2 className="text-2xl font-black font-heading tracking-tight m-0">{DASHBOARD_CONSTANTS.PERFORMANCE.HEADING}</h2>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10 animate-stagger">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10 animate-stagger">
                   {[
                     { label: DASHBOARD_CONSTANTS.PERFORMANCE.OVERALL_CLICKS, val: totalClicks, ico: <BarChartIcon size={20} />, color: "emerald" },
                     { label: DASHBOARD_CONSTANTS.PERFORMANCE.ACTIVE_LINKS, val: urls.length, ico: <LinkIcon size={20} />, color: "indigo" },
                     { label: DASHBOARD_CONSTANTS.PERFORMANCE.AVG_CLICKS, val: urls.length ? (totalClicks / urls.length).toFixed(1) : 0, ico: <Zap size={20} />, color: "amber" },
                     { label: DASHBOARD_CONSTANTS.PERFORMANCE.LAST_7_DAYS, val: urls.filter(u => new Date(u.created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length, ico: <TrendingUp size={20} />, color: "rose" }
                   ].map((stat, i) => (
-                    <div key={i} className="p-5 bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-xl group hover:border-[var(--primary)] hover:shadow-md transition-all">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className={`p-2.5 rounded-lg bg-${stat.color}-50 dark:bg-${stat.color}-500/10 text-${stat.color}-600 dark:text-${stat.color}-400 group-hover:scale-110 transition-transform`}>
+                    <div key={i} className="p-4 sm:p-5 bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-xl group hover:border-[var(--primary)] hover:shadow-md transition-all">
+                      <div className="flex items-center justify-between mb-3 sm:mb-4">
+                        <div className={`p-2 sm:p-2.5 rounded-lg bg-${stat.color}-50 dark:bg-${stat.color}-500/10 text-${stat.color}-600 dark:text-${stat.color}-400 group-hover:scale-110 transition-transform`}>
                           {stat.ico}
                         </div>
                       </div>
-                      <div className="text-3xl font-black tracking-tight mb-1">{stat.val}</div>
-                      <div className="text-xs font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">{stat.label}</div>
+                      <div className="text-2xl sm:text-3xl font-black tracking-tight mb-1">{stat.val}</div>
+                      <div className="text-[10px] sm:text-xs font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">{stat.label}</div>
                     </div>
                   ))}
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10">
                   <div className="p-6 bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-xl">
                     <div className="flex items-center gap-2 text-sm font-bold text-[var(--foreground-muted)] uppercase tracking-wider mb-6">
                       <Calendar size={16} /> {DASHBOARD_CONSTANTS.PERFORMANCE.TRAFFIC_FORECAST}
@@ -955,9 +961,9 @@ export default function Dashboard() {
 
         {activeTab === 'history' && (
           <div className="animate-premium">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 sm:mb-10">
               <div>
-                <h2 className="text-3xl font-black font-heading tracking-tight m-0 mb-1">{DASHBOARD_CONSTANTS.HISTORY.HEADING}</h2>
+                <h2 className="text-2xl sm:text-3xl font-black font-heading tracking-tight m-0 mb-1">{DASHBOARD_CONSTANTS.HISTORY.HEADING}</h2>
                 <span className="text-sm font-medium text-[var(--primary)]">{DASHBOARD_CONSTANTS.HISTORY.TOTAL_LINKS} Archive</span>
               </div>
               <div className="px-4 py-2 rounded-full bg-[var(--primary)] text-white text-xs font-bold uppercase tracking-wider">

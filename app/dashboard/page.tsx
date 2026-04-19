@@ -1,5 +1,12 @@
 import { Dashboard, DefaultLayout } from "../components";
+import AuthGuard from "../components/common/AuthGuard";
 
 export default function DashboardPage() {
-  return <DefaultLayout><Dashboard /></DefaultLayout>;
-}   
+  return (
+    <AuthGuard mode="auth">
+      <DefaultLayout>
+        <Dashboard />
+      </DefaultLayout>
+    </AuthGuard>
+  );
+}

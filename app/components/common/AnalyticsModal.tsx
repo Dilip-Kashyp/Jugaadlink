@@ -145,34 +145,33 @@ export default function AnalyticsModal({
       onCancel={onClose}
       footer={null}
       centered
-      width={1000}
-      className="premium-modal"
+      width="min(1000px, 95vw)"
+      className="premium-modal custom-modal"
       rootClassName="[&_.ant-modal-content]:!p-0 [&_.ant-modal-content]:!bg-[var(--background)] [&_.ant-modal-content]:!rounded-2xl [&_.ant-modal-content]:!overflow-hidden [&_.ant-modal-content]:!border-0 [&_.ant-modal-close]:!hidden"
     >
       <Flex vertical>
-        {/* Header */}
-        <Flex justify="space-between" align="center" className="p-8 border-b border-[var(--border-default)] bg-[var(--background-subtle)]">
-          <Flex vertical gap={4}>
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-[var(--primary-subtle)] rounded-xl text-[var(--primary)] shadow-sm">
-                <BarChartIcon size={22} />
+        <Flex justify="space-between" align="center" className="p-4 sm:p-8 border-b border-[var(--border-default)] bg-[var(--background-subtle)] flex-wrap gap-3">
+          <Flex vertical gap={4} className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 sm:gap-3 m-3">
+              <div className="p-2 sm:p-2.5 bg-[var(--primary-subtle)] rounded-xl text-[var(--primary)] shadow-sm flex-shrink-0">
+                <BarChartIcon size={18} />
               </div>
-              <Typography.Title level={3} className="!font-black !m-0 !tracking-tight !text-3xl">
+              <Typography.Title level={3} className="!font-black !m-0 !tracking-tight !text-xl sm:!text-3xl">
                 Performance Analytics
               </Typography.Title>
             </div>
             {selectedLink && (
-              <span className="text-xs font-bold text-[var(--foreground-subtle)] font-mono pl-12 truncate max-w-md opacity-70">
+              <span className="text-xs font-bold text-[var(--foreground-subtle)] font-mono pl-9 sm:pl-12 truncate max-w-[200px] sm:max-w-md opacity-70">
                 {selectedLink.short_url}
               </span>
             )}
           </Flex>
-          <Flex align="center" gap={12}>
+          <Flex align="center" gap={8} className="flex-shrink-0">
             {selectedLink && (
-              <div className="flex items-center gap-1 bg-[var(--background-muted)] p-1.5 rounded-2xl border border-[var(--border-default)]">
-                <Tooltip title="Copy Link"><Button type="text" shape="circle" onClick={() => onCopy(selectedLink.short_url)} icon={<Copy size={18} />} /></Tooltip>
-                <Tooltip title="QR Code"><Button type="text" shape="circle" onClick={() => onQrCode(selectedLink.short_url)} icon={<QrCode size={18} />} /></Tooltip>
-                <Tooltip title="Delete"><Button type="text" shape="circle" onClick={() => { onDelete(selectedLink.short_url); onClose(); }} icon={<Trash2 size={18} />} danger /></Tooltip>
+              <div className="flex items-center gap-1 bg-[var(--background-muted)] p-1 sm:p-1.5 rounded-2xl border border-[var(--border-default)]">
+                <Tooltip title="Copy Link"><Button type="text" shape="circle" onClick={() => onCopy(selectedLink.short_url)} icon={<Copy size={16} />} /></Tooltip>
+                <Tooltip title="QR Code"><Button type="text" shape="circle" onClick={() => onQrCode(selectedLink.short_url)} icon={<QrCode size={16} />} /></Tooltip>
+                <Tooltip title="Delete"><Button type="text" shape="circle" onClick={() => { onDelete(selectedLink.short_url); onClose(); }} icon={<Trash2 size={16} />} danger /></Tooltip>
               </div>
             )}
             <Button onClick={onClose} type="text" shape="circle" className="hover:!bg-[var(--background-muted)]" icon={<X size={20} />} />
@@ -181,18 +180,18 @@ export default function AnalyticsModal({
 
         {/* Content */}
         {selectedLink && (
-          <div className="p-10 max-h-[75vh] overflow-y-auto bg-[var(--background)]">
+          <div className="p-4 sm:p-10 max-h-[75vh] overflow-y-auto bg-[var(--background)]">
             {/* Stat Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-              <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl p-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 mb-6 sm:mb-10">
+              <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl p-5 sm:p-8">
                 <span className="text-[11px] font-black uppercase tracking-widest text-[var(--foreground-subtle)] mb-3 block">Total Engagement</span>
-                <span className="text-6xl font-black tracking-tight block">{selectedLink.clicks}</span>
+                <span className="text-4xl sm:text-6xl font-black tracking-tight block">{selectedLink.clicks}</span>
               </div>
-              <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl p-8 md:col-span-2">
+              <div className="bg-[var(--background-subtle)] border border-[var(--border-default)] rounded-2xl p-5 sm:p-8 sm:col-span-2">
                 <span className="text-[11px] font-black uppercase tracking-widest text-[var(--foreground-subtle)] mb-3 block">Destination</span>
                 <div className="flex items-center gap-3">
-                  <Globe size={20} className="text-[var(--primary)]" />
-                  <span className="text-lg font-bold text-[var(--foreground)] truncate">{selectedLink.original_url}</span>
+                  <Globe size={20} className="text-[var(--primary)] flex-shrink-0" />
+                  <span className="text-base sm:text-lg font-bold text-[var(--foreground)] truncate">{selectedLink.original_url}</span>
                 </div>
               </div>
             </div>
